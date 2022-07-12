@@ -12,6 +12,8 @@ object Version {
     const val RETROFIT2 = "2.9.0"
     const val OKHTTP3 = "4.9.3"
     const val MOSHI = "1.9.3"
+    const val BROWSER = "1.4.0"
+    const val VIEWMODEL = "2.2.0"
 }
 
 object Lib {
@@ -20,6 +22,8 @@ object Lib {
         const val CORE = "androidx.core:core-ktx:${Version.CORE}"
         const val CONSTRAINT_LAYOUT =
             "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT_LAYOUT}"
+        const val BROWSER = "androidx.browser:browser:${Version.BROWSER}"
+        const val VIEWMDOEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.VIEWMODEL}"
     }
 
     object Material {

@@ -5,4 +5,5 @@
     <string name="main_appbar_title">What\'s in My GitHub</string>
     <string name="label_search_icon">label_search_icon</string>
     <string name="label_profile_icon">label_profile_icon</string>
+    <string name="login_error_message">로그인 인증에 실패했습니다.</string>
 </resources>
