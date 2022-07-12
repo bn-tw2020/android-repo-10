@@ -61,4 +61,6 @@ dependencies {
     implementation(Lib.OkHttp3.OKHTTP3)
     implementation(Lib.OkHttp3.OKHTTP3_LOGGING_INTERCEPTER)
     implementation(Lib.Moshi.MOSHI)
+    implementation(Lib.AndroidX.VIEWMDOEL_KTX)
+    implementation(Lib.AndroidX.BROWSER)
 }

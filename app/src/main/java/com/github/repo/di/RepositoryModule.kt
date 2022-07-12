@@ -1,0 +1,9 @@
+package com.github.repo.di
+
+import com.github.repo.data.repository.LoginRepositoryImpl
+import com.github.repo.domain.repository.LoginRepository
+import org.koin.dsl.module
+
+val repositoryModule = module {
+    single<LoginRepository> { LoginRepositoryImpl(get()) }
+}
