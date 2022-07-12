@@ -4,7 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main"
     tools:context=".presentation.main.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        style="@style/AppBarTitle"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/main_appbar_title">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="300dp">
+
+            <ImageButton
+                android:id="@+id/btn_profile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/label_profile_icon"
+                android:src="@drawable/ic_user" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/label_search_icon"
+            android:src="@drawable/ic_search_bold" />
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"

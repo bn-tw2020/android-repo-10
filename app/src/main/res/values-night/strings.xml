@@ -2,4 +2,7 @@
 <resources>
     <string name="label_logo">label_logo</string>
     <string name="login_github">Github 로그인</string>
+    <string name="main_appbar_title">What\'s in My GitHub</string>
+    <string name="label_search_icon">label_search_icon</string>
+    <string name="label_profile_icon">label_profile_icon</string>
 </resources>
