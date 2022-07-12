@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -46,4 +47,18 @@ dependencies {
     testImplementation(Lib.Test.JUNIT)
     androidTestImplementation(Lib.Test.JUNIT_TEST)
     androidTestImplementation(Lib.Test.ESPRESSO)
+    implementation(Lib.KOIN.ANDROID)
+    implementation(Lib.KOIN.EXT)
+    testImplementation(Lib.KOIN.TEST)
+    implementation(Lib.COROUTINE.CORE)
+    implementation(Lib.COROUTINE.ANDROID)
+    implementation(Lib.COROUTINE.TEST)
+    implementation(Lib.GLIDE.GLIDE)
+    kapt(Lib.GLIDE.COMPILER)
+    implementation(Lib.RETROFIT.RETROFIT2)
+    implementation(Lib.RETROFIT.RETROFIT2_CONVERTER_SCALARS)
+    implementation(Lib.RETROFIT.RETROFIT2_CONVERTER_MOSHI)
+    implementation(Lib.OkHttp3.OKHTTP3)
+    implementation(Lib.OkHttp3.OKHTTP3_LOGGING_INTERCEPTER)
+    implementation(Lib.Moshi.MOSHI)
 }
