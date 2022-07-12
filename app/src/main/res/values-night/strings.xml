@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">repo</string>
     <string name="label_logo">label_logo</string>
     <string name="login_github">Github 로그인</string>
 </resources>
