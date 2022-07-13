@@ -13,5 +13,16 @@
         android:background="@drawable/background_main"
         tools:context=".presentation.search.SearchFragment">
 
+        <com.github.repo.presentation.common.CustomToolbar
+            android:id="@+id/tb_search"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:toolbarTitle="@string/fragment_search"
+            app:toolbarTitleColor="@color/white" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

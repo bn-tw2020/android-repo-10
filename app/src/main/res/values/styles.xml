@@ -14,9 +14,7 @@
     </style>
 
     <style name="AppBarTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:fontFamily">
-            @font/outfit_semi_bold
-        </item>
+        <item name="android:fontFamily">@font/outfit_semi_bold</item>
         <item name="titleTextColor">@color/white</item>
     </style>
 </resources>
