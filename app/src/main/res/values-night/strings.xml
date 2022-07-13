@@ -9,4 +9,7 @@
     <string name="fragment_search">Search</string>
     <string name="fragment_profile">Profile</string>
     <string name="fragment_issue">Issue</string>
+    <string name="hint_search">Search GitHub</string>
+    <string name="label_search_clear_icon">label_search_clear_icon</string>
+    <string name="label_repository_star">label_repository_star</string>
 </resources>
