@@ -13,4 +13,6 @@
     <string name="hint_search">Search GitHub</string>
     <string name="label_search_clear_icon">label_search_clear_icon</string>
     <string name="label_repository_star">label_repository_star</string>
+    <string name="search_blank_title">Find Your Stuff</string>
+    <string name="search_blank_description">Search all of GitHub for People,\n Repositories, Organizations, Issues,\n and Pull Requests.</string>
 </resources>

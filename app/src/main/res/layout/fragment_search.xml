@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_main"
-        tools:context=".presentation.search.SearchFragment">
+        tools:context=".presentation.search.SearchFragment"
+        tools:ignore="MissingConstraints">
 
         <com.github.repo.presentation.common.CustomToolbar
             android:id="@+id/tb_search"
@@ -79,6 +80,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search"
             tools:listitem="@layout/item_repository" />
+
+        <TextView
+            android:id="@+id/tv_blank_title"
+            style="@style/AppBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_blank_title"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_blank_description"
+            style="@style/AppBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_blank_description"
+            android:textColor="@color/grey" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            app:constraint_referenced_ids="tv_blank_title, tv_blank_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
