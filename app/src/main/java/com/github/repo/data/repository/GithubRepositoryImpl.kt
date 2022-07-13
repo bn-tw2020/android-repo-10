@@ -1,7 +1,8 @@
 package com.github.repo.data.repository
 
 import com.github.repo.data.datasource.GithubDataSource
-import com.github.repo.data.dto.GithubSearchDto
+import com.github.repo.data.dto.toGithubSearch
+import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.repository.GithubRepository
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
@@ -10,7 +11,9 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     override suspend fun getNotifications() {}
     override suspend fun getProfile() {}
 
-    override suspend fun searchRepositories(keyword: String): Result<GithubSearchDto> {
-        return githubDataSource.searchRepositories(keyword)
+    override suspend fun searchRepositories(keyword: String): Result<GithubSearch> {
+        return githubDataSource.searchRepositories(keyword).map {
+            it.toGithubSearch()
+        }
     }
 }

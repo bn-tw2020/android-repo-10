@@ -1,11 +1,11 @@
 package com.github.repo.domain.repository
 
-import com.github.repo.data.dto.GithubSearchDto
+import com.github.repo.domain.model.GithubSearch
 
 interface GithubRepository {
 
     suspend fun getIssues()
     suspend fun getNotifications()
     suspend fun getProfile()
-    suspend fun searchRepositories(keyword: String): Result<GithubSearchDto>
+    suspend fun searchRepositories(keyword: String): Result<GithubSearch>
 }
