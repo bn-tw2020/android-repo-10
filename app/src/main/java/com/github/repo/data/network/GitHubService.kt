@@ -1,10 +1,8 @@
 package com.github.repo.data.network
 
+import com.github.repo.data.dto.GithubSearchDto
 import com.github.repo.data.dto.GithubTokenDto
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface GitHubService {
 
@@ -16,4 +14,7 @@ interface GitHubService {
         @Field("client_secret") clientSecret: String,
         @Field("code") code: String
     ): GithubTokenDto
+
+    @GET("search/repositories")
+    suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
 }
