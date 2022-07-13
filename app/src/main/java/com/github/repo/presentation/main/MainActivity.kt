@@ -8,12 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.repo.R
 import com.github.repo.databinding.ActivityMainBinding
+import com.github.repo.presentation.common.Clickable
 import com.github.repo.presentation.main.issue.IssueFragment
 import com.github.repo.presentation.main.notifications.NotificationsFragment
 import com.github.repo.presentation.profile.ProfileFragment
 import com.github.repo.presentation.search.SearchFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Clickable {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -97,12 +98,19 @@ class MainActivity : AppCompatActivity() {
             else -> super.onBackPressed()
         }
     }
-    private fun showAppBar(){
+
+    private fun showAppBar() {
         binding.toolbar.isVisible = true
         binding.rgFragmentTab.isVisible = true
     }
-    private fun hideAppBar(){
+
+    private fun hideAppBar() {
         binding.toolbar.isGone = true
         binding.rgFragmentTab.isGone = true
+    }
+
+    override fun onClickBackButton() {
+        supportFragmentManager.popBackStack()
+        showAppBar()
     }
 }

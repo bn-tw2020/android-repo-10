@@ -25,4 +25,8 @@ class CustomToolbar(
         }
         a.recycle()
     }
+
+    fun onClickNavigationIcon(callback: () -> Unit) {
+        binding.tbMain.setNavigationOnClickListener { callback() }
+    }
 }
