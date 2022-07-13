@@ -6,6 +6,13 @@
             @font/ko_pub_world_dotum_pro_medium
         </item>
     </style>
+
+    <style name="SubTitle2.white">
+        <item name="android:textColor">
+            @color/white
+        </item>
+    </style>
+
     <style name="AppBarTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:fontFamily">
             @font/outfit_semi_bold
