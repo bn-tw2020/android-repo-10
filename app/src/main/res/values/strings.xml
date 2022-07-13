@@ -8,4 +8,6 @@
     <string name="login_error_message">로그인 인증에 실패했습니다.</string>
     <string name="fragment_search">Search</string>
     <string name="fragment_profile">Profile</string>
+    <string name="fragment_issue">Issue</string>
+    <string name="fragment_notifications">Notifications</string>
 </resources>
