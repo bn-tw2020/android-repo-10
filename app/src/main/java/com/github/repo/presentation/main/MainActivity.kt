@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.repo.R
 import com.github.repo.databinding.ActivityMainBinding
+import com.github.repo.presentation.main.issue.IssueFragment
+import com.github.repo.presentation.main.notifications.NotificationsFragment
 import com.github.repo.presentation.profile.ProfileFragment
 import com.github.repo.presentation.search.SearchFragment
 
@@ -23,6 +25,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         appBarSetting()
+        toggleButtonSetting()
+    }
+
+    private fun toggleButtonSetting() {
+        binding.rgFragmentTab.setOnCheckedChangeListener { _, id ->
+            when (id) {
+                R.id.btn_issue -> {
+                    changeFragment(IssueFragment(), getString(R.string.fragment_issue))
+                }
+                R.id.btn_notifications -> {
+                    changeFragment(
+                        NotificationsFragment(),
+                        getString(R.string.fragment_notifications)
+                    )
+                }
+            }
+        }
     }
 
     private fun appBarSetting() {
@@ -43,9 +62,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeFragment(fragment: Fragment, tag: String) {
-        when(tag){
-            getString(R.string.fragment_search) -> {binding.toolbar.isGone = true}
-            getString(R.string.fragment_profile) -> {binding.toolbar.isGone = true}
+        when (tag) {
+            getString(R.string.fragment_search) -> binding.toolbar.isGone = true
+            getString(R.string.fragment_profile) -> binding.toolbar.isGone = true
         }
 
         supportFragmentManager.beginTransaction()
