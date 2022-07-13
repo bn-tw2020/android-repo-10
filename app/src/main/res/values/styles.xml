@@ -12,7 +12,11 @@
             @color/white
         </item>
     </style>
-
+    <style name="SubTitle2.grey">
+        <item name="android:textColor">
+            @color/grey
+        </item>
+    </style>
     <style name="AppBarTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:fontFamily">@font/outfit_semi_bold</item>
         <item name="titleTextColor">@color/white</item>
