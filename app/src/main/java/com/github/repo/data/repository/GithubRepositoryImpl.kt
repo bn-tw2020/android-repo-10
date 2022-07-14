@@ -17,11 +17,11 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                     list.forEach {
                         notificationList.add(
                             NotificationDto(
-                                thumbnailUrl = it.repository.owner.avatar_url,
-                                repoName = it.repository.full_name,
+                                thumbnailUrl = it.repository.owner.avatarUrl,
+                                repoName = it.repository.fullName,
                                 notificationTitle = it.subject.title,
                                 issueNumber = 3,
-                                updateTime = it.updated_at,
+                                updateTime = it.updatedAt,
                                 commentCount = 2,
                             )
                         )

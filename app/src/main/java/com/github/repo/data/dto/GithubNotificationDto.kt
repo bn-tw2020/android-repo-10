@@ -1,13 +1,15 @@
 package com.github.repo.data.dto
 
+import com.squareup.moshi.Json
+
 data class GithubNotificationDto(
-    val id: String,
-    val last_read_at: String,
-    val reason: String,
-    val repository: Repository,
-    val subject: Subject,
-    val subscription_url: String,
-    val unread: Boolean,
-    val updated_at: String,
-    val url: String
+    @Json(name = "id") val id: String,
+    @Json(name = "last_read_at") val lastReadAt: String,
+    @Json(name = "reason") val reason: String,
+    @Json(name = "repository") val repository: Repository,
+    @Json(name = "subject") val subject: GithubSubjectDto,
+    @Json(name = "subscription_url") val subscriptionUrl: String,
+    @Json(name = "unread") val unread: Boolean,
+    @Json(name = "updated_at") val updatedAt: String,
+    @Json(name = "url") val url: String
 )
