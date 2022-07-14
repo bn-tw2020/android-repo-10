@@ -1,12 +1,10 @@
 package com.github.repo.presentation.main.notifications
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.repo.data.datasource.TokenSharedPreference
-import com.github.repo.domain.dto.NotificationDto
 import com.github.repo.domain.repository.GithubRepository
 import kotlinx.coroutines.launch
 
