@@ -7,6 +7,7 @@ import com.github.repo.domain.repository.GithubRepository
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
     override suspend fun getIssues() {}
+
     override suspend fun getNotifications(token: String): Result<List<NotificationDto>> =
         runCatching {
             val notificationList = mutableListOf<NotificationDto>()
