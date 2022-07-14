@@ -23,4 +23,10 @@ class NotificationsViewModel(
             .onSuccess { _uiState.value = UiState.GetNotifications(it) }
             .onFailure { _uiState.value = UiState.Error }
     }
+
+    fun removeNotification(id: String) = viewModelScope.launch {
+        githubRepository.removeNotification(id)
+            .onSuccess { Log.d("Tester", "Success") }
+            .onFailure { it.printStackTrace() }
+    }
 }

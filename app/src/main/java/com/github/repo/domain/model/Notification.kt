@@ -7,4 +7,5 @@ data class Notification (
     val issueNumber: Int,
     val updateTime: String,
     val commentCount: Int,
+    val threadId: String,
 )

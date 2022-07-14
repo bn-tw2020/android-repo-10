@@ -3,7 +3,7 @@ package com.github.repo.data.dto
 import com.squareup.moshi.Json
 
 data class GithubNotificationDto(
-    @Json(name = "id") val id: String?,
+    @Json(name = "id") val id: String,
     @Json(name = "last_read_at") val lastReadAt: String?,
     @Json(name = "reason") val reason: String?,
     @Json(name = "repository") val repository: GithubRepositoryDto,

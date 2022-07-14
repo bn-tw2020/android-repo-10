@@ -29,4 +29,7 @@ interface GitHubService {
 
     @GET
     suspend fun getIssueFromNotification(@Url url: String): GithubIssueDto
+
+    @PATCH("/notifications/threads/{thread_id}")
+    suspend fun removeNotification(@Path("thread_id") id: String): GithubIssueDto
 }

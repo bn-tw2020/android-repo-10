@@ -54,8 +54,10 @@ class NotificationsFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ): Boolean = true
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) =
-                rvAdapter.removeItem(viewHolder.adapterPosition)
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val removeItem = rvAdapter.removeItem(viewHolder.adapterPosition)
+                viewModel.removeNotification(removeItem.threadId)
+            }
 
             override fun onChildDraw(
                 c: Canvas,
