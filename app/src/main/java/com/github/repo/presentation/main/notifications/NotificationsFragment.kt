@@ -5,20 +5,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.repo.R
+import com.github.repo.databinding.FragmentNotificationsBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationsFragment : Fragment() {
+
+    lateinit var binding: FragmentNotificationsBinding
+    private val viewModel: NotificationsViewModel by viewModel<NotificationsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+    ): View {
+        binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
 
+        viewModel.getNotifications()
+        initView()
+    }
+
+    private fun initView() {
+        // RecyclerView
+        observeData()
+    }
+
+    private fun observeData() {
+        viewModel.uiState.observe(viewLifecycleOwner){ state ->
+            when(state){
+                is UiState.Error -> {}
+                is UiState.Loading -> {}
+                is UiState.GetNotifications -> {}
+            }
+        }
     }
 }

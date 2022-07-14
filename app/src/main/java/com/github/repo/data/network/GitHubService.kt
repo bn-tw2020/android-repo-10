@@ -1,10 +1,8 @@
 package com.github.repo.data.network
 
+import com.github.repo.data.dto.GithubNotificationDto
 import com.github.repo.data.dto.GithubTokenDto
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface GitHubService {
 
@@ -16,4 +14,10 @@ interface GitHubService {
         @Field("client_secret") clientSecret: String,
         @Field("code") code: String
     ): GithubTokenDto
+
+    @GET("/notifications")
+    suspend fun getNotifications(
+        @Header("Authorization") token: String,
+        @Header("Accept") accept: String = "Accept: application/vnd.github+json"
+    ): List<GithubNotificationDto>
 }
