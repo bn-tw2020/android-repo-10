@@ -1,20 +1,18 @@
 package com.github.repo.data.repository
 
-import android.util.Log
-import com.github.repo.config.GITHUB_API
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubSearch
 import com.github.repo.domain.model.GithubSearch
-import com.github.repo.domain.dto.NotificationDto
+import com.github.repo.domain.dto.Notification
 import com.github.repo.domain.repository.GithubRepository
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
     override suspend fun getIssues() {}
 
-    override suspend fun getNotifications(token: String): Result<List<NotificationDto>> =
+    override suspend fun getNotifications(token: String): Result<List<Notification>> =
         runCatching {
-            val notificationList = mutableListOf<NotificationDto>()
+            val notificationList = mutableListOf<Notification>()
             githubDataSource.getNotifications(token)
                 .onFailure { throw it }
                 .onSuccess { list ->
@@ -25,7 +23,7 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                             }
                             .onSuccess { dto ->
                                 notificationList.add(
-                                    NotificationDto(
+                                    Notification(
                                         thumbnailUrl = it.repository.owner.avatarUrl,
                                         repoName = it.repository.fullName,
                                         notificationTitle = it.subject.title,

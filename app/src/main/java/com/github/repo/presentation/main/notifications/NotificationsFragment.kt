@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.repo.databinding.FragmentNotificationsBinding
-import com.github.repo.domain.dto.NotificationDto
+import com.github.repo.domain.dto.Notification
 import com.github.repo.presentation.main.notifications.adapter.NotificationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -67,7 +66,7 @@ class NotificationsFragment : Fragment() {
         binding.tvError.isGone = true
     }
 
-    private fun handleSuccess(list: List<NotificationDto>) {
+    private fun handleSuccess(list: List<Notification>) {
         rvAdapter.addItemList(list)
         binding.rvNotification.isVisible = true
         binding.pbLoading.isGone = true
