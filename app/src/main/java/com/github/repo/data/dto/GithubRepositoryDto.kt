@@ -2,7 +2,7 @@ package com.github.repo.data.dto
 
 import com.squareup.moshi.Json
 
-data class Repository(
+data class GithubRepositoryDto(
     @Json(name = "archive_url") val archiveUrl: String,
     @Json(name = "assignees_url") val assigneesUrl: String,
     @Json(name = "blobs_url") val blobsUrl: String,
@@ -17,13 +17,13 @@ data class Repository(
     @Json(name = "description") val description: String,
     @Json(name = "downloads_url") val downloadsUrl: String,
     @Json(name = "events_url") val eventsUrl: String,
-    @Json(name = "for") val fork: Boolean,
+    @Json(name = "fork") val fork: Boolean,
     @Json(name = "forks_url") val forksUrl: String,
     @Json(name = "full_name") val fullName: String,
     @Json(name = "git_commits_url") val gitCommitsUurl: String,
     @Json(name = "git_refs_url") val gitRefsUrl: String,
     @Json(name = "git_tags_url") val gitTagsUrl: String,
-    @Json(name = "git_url") val gitUrl: String,
+    @Json(name = "git_url") val gitUrl: String?,
     @Json(name = "hooks_url") val hooksUrl: String,
     @Json(name = "html_url") val htmlUrl: String,
     @Json(name = "id") val id: Int,
@@ -42,7 +42,7 @@ data class Repository(
     @Json(name = "private") val private: Boolean,
     @Json(name = "pulls_url") val pullsUrl: String,
     @Json(name = "releases_url") val releasesUrl: String,
-    @Json(name = "ssh_url") val sshUrl: String,
+    @Json(name = "ssh_url") val sshUrl: String?,
     @Json(name = "stargazers_url") val stargazersUrl: String,
     @Json(name = "statuses_url") val statusesUrl: String,
     @Json(name = "subscribers_url") val subscribersUrl: String,

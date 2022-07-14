@@ -21,20 +21,7 @@ class NotificationsViewModel(
     fun getNotifications() = viewModelScope.launch {
         _uiState.value = UiState.Loading
         githubRepository.getNotifications("token ${tokenSharedPreference.getToken()}")
-            .onSuccess { list ->
-                val dummies = listOf(
-                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
-                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
-                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
-                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
-                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
-                )
-                _uiState.value = UiState.GetNotifications(dummies)
-            }
-            .onFailure {
-                it.printStackTrace()
-                Log.d("Tester",tokenSharedPreference.getToken())
-                _uiState.value = UiState.Error
-            }
+            .onSuccess { _uiState.value = UiState.GetNotifications(it) }
+            .onFailure { _uiState.value = UiState.Error }
     }
 }
