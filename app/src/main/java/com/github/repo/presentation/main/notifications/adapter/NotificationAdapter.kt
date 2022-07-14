@@ -13,7 +13,6 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>
 
     private val notificationDtoList = ArrayList<NotificationDto>()
 
-    var onItemClick: () -> Unit = {}
     fun addItemList(list: List<NotificationDto>) {
         notificationDtoList.addAll(list)
         notifyDataSetChanged()
