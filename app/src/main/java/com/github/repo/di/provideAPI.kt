@@ -42,3 +42,6 @@ fun provideGithubApiRetrofit(
 
 fun provideGithubService(retrofit: Retrofit): GitHubService =
     retrofit.create(GitHubService::class.java)
+
+fun provideGithubApi(retrofit: Retrofit): GitHubService =
+    retrofit.create(GitHubService::class.java)
