@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repository"
+            type="com.github.repo.domain.model.GithubRepo" />
+
+        <import type="android.graphics.Color" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="19dp"
+        tools:background="@color/navy_light"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile"
+            setImage="@{repository.owner.avatarUrl}"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            tools:src="@drawable/ic_user" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/SubTitle2.grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:paddingBottom="8dp"
+            android:text="@{repository.owner.login}"
+            tools:text="hussien89aa" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/SubTitle2.white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="@{repository.name}"
+            tools:text="KotlinUdemy" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/SubTitle2.white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{repository.description}"
+            tools:text="Learn how to make online games, and apps for Android O, like pokemon, twitter, Tic Tac Toe, and notepad using Kotlin" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/layout_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            app:constraint_referenced_ids="tv_title, tv_name, tv_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+        <ImageView
+            android:id="@+id/iv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:contentDescription="@string/label_repository_star"
+            android:src="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@id/layout_information"
+            app:layout_constraintTop_toBottomOf="@id/layout_information" />
+
+        <TextView
+            android:id="@+id/tv_star"
+            style="@style/SubTitle2.grey"
+            formatNumber="@{repository.star}"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_star"
+            app:layout_constraintStart_toEndOf="@id/iv_star"
+            app:layout_constraintTop_toTopOf="@id/iv_star"
+            tools:text="41.4K" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_language"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="13dp"
+            android:background="@{repository.languageColor == null ? 0 : Color.parseColor(repository.languageColor)}"
+            android:contentDescription="@string/label_repository_star"
+            app:layout_constraintBottom_toBottomOf="@id/iv_star"
+            app:layout_constraintStart_toEndOf="@id/tv_star"
+            app:layout_constraintTop_toTopOf="@id/iv_star"
+            app:shapeAppearanceOverlay="@style/circleImageView" />
+
+        <TextView
+            android:id="@+id/tv_language"
+            style="@style/SubTitle2.grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{repository.language}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_star"
+            app:layout_constraintStart_toEndOf="@id/iv_language"
+            app:layout_constraintTop_toTopOf="@id/iv_star"
+            tools:text="Kotlin" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,5 +9,10 @@
     <string name="fragment_search">Search</string>
     <string name="fragment_profile">Profile</string>
     <string name="fragment_issue">Issue</string>
+    <string name="hint_search">Search GitHub</string>
+    <string name="label_search_clear_icon">label_search_clear_icon</string>
+    <string name="label_repository_star">label_repository_star</string>
+    <string name="search_blank_title">Find Your Stuff</string>
+    <string name="search_blank_description">Search all of GitHub for People,\n Repositories, Organizations, Issues,\n and Pull Requests.</string>
     <string name="notification_error">네트워크 상에 문제가 발생했습니다!</string>
 </resources>

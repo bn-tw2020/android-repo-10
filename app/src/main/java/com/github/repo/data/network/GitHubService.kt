@@ -1,5 +1,6 @@
 package com.github.repo.data.network
 
+import com.github.repo.data.dto.GithubSearchDto
 import com.github.repo.data.dto.GithubNotificationDto
 import com.github.repo.data.dto.GithubTokenDto
 import retrofit2.http.*
@@ -15,9 +16,14 @@ interface GitHubService {
         @Field("code") code: String
     ): GithubTokenDto
 
+
+    @GET("search/repositories")
+    suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
+
     @GET("/notifications")
     suspend fun getNotifications(
         @Header("Authorization") token: String,
         @Header("Accept") accept: String = "Accept: application/vnd.github+json"
     ): List<GithubNotificationDto>
+
 }
