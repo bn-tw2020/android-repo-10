@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.repo.data.datasource.TokenSharedPreference
+import com.github.repo.domain.dto.NotificationDto
 import com.github.repo.domain.repository.GithubRepository
 import kotlinx.coroutines.launch
 
@@ -21,11 +22,14 @@ class NotificationsViewModel(
         _uiState.value = UiState.Loading
         githubRepository.getNotifications("token ${tokenSharedPreference.getToken()}")
             .onSuccess { list ->
-                Log.d("tester",list.toString())
-                list.forEach{
-                    Log.d("tester",it.toString())
-                }
-                _uiState.value = UiState.GetNotifications(list)
+                val dummies = listOf(
+                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
+                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
+                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
+                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
+                    NotificationDto("https://avatars.githubusercontent.com/u/9919?s=460&v=4","test/repo", "test notification title", 3, "2014-11-07T22:01:45Z",3),
+                )
+                _uiState.value = UiState.GetNotifications(dummies)
             }
             .onFailure {
                 it.printStackTrace()

@@ -1,7 +1,6 @@
 package com.github.repo.presentation.main.notifications
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.repo.databinding.FragmentNotificationsBinding
 import com.github.repo.domain.dto.NotificationDto
-import com.github.repo.presentation.main.notifications.adapter.NotificationRvAdapter
+import com.github.repo.presentation.main.notifications.adapter.NotificationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationsFragment : Fragment() {
 
     lateinit var binding: FragmentNotificationsBinding
-    lateinit var rvAdapter: NotificationRvAdapter
+    lateinit var rvAdapter: NotificationAdapter
     private val viewModel: NotificationsViewModel by viewModel<NotificationsViewModel>()
 
     override fun onCreateView(
@@ -42,7 +41,7 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun recyclerViewAdapterSetting() {
-        rvAdapter = NotificationRvAdapter()
+        rvAdapter = NotificationAdapter()
         binding.rvNotification.adapter = rvAdapter
         binding.rvNotification.layoutManager = LinearLayoutManager(this.context)
     }
