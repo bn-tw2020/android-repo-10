@@ -10,5 +10,5 @@ val networkModule = module {
     single(named("github_auth")) { provideRetrofit(get(), get()) }
     single(named("github_api")) { provideGithubApiRetrofit(get(), get()) }
     single(named("auth_service")) { provideGithubService(get(named("github_auth"))) }
-    single(named("api_service")) { provideGithubService(get(named("github_api"))) }
+    single(named("api_service")) { provideGithubApi(get(named("github_api"))) }
 }
