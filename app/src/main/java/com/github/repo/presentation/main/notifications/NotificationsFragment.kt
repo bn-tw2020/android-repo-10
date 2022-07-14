@@ -43,7 +43,6 @@ class NotificationsFragment : Fragment() {
     private fun recyclerViewAdapterSetting() {
         rvAdapter = NotificationAdapter()
         binding.rvNotification.adapter = rvAdapter
-        binding.rvNotification.layoutManager = LinearLayoutManager(this.context)
     }
 
     private fun observeData() {
