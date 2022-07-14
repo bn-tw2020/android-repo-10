@@ -14,6 +14,7 @@ object Version {
     const val MOSHI = "1.9.3"
     const val BROWSER = "1.4.0"
     const val VIEWMODEL = "2.2.0"
+    const val LIVEDATA = "2.4.1"
 }
 
 object Lib {
@@ -24,6 +25,7 @@ object Lib {
             "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT_LAYOUT}"
         const val BROWSER = "androidx.browser:browser:${Version.BROWSER}"
         const val VIEWMDOEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.VIEWMODEL}"
+        const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.LIVEDATA}"
     }
 
     object Material {

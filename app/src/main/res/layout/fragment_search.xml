@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.github.repo.presentation.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,7 @@
             android:inputType="textMultiLine|textNoSuggestions"
             android:paddingStart="56dp"
             android:paddingEnd="56dp"
+            android:text="@={viewModel.searchKeyword}"
             android:textColor="@color/white"
             android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"

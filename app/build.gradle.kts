@@ -63,4 +63,5 @@ dependencies {
     implementation(Lib.Moshi.MOSHI)
     implementation(Lib.AndroidX.VIEWMDOEL_KTX)
     implementation(Lib.AndroidX.BROWSER)
+    implementation(Lib.AndroidX.LIVEDATA)
 }

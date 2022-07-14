@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.repo.R
 import com.github.repo.databinding.FragmentSearchBinding
 import com.github.repo.presentation.common.Clickable
 import com.github.repo.presentation.search.adapter.RepositoryAdapter
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -44,7 +45,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-
+        binding.viewModel = viewModel
         initView()
         observeData()
     }
@@ -52,14 +53,6 @@ class SearchFragment : Fragment() {
     private fun initView() {
         binding.tbSearch.onClickNavigationIcon { listener.onClickBackButton() }
         adapterSetting()
-        binding.etSearch.doAfterTextChanged { text ->
-            val keyword = text.toString()
-            if (keyword.isBlank()) {
-                handleError()
-            } else {
-                viewModel.searchRepositories(keyword)
-            }
-        }
     }
 
     private fun adapterSetting() {
@@ -71,6 +64,8 @@ class SearchFragment : Fragment() {
         binding.rvRepository.addItemDecoration(dividerItemDecoration)
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
