@@ -1,6 +1,9 @@
 package com.github.repo.presentation.main
 
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -112,5 +115,20 @@ class MainActivity : AppCompatActivity(), Clickable {
     override fun onClickBackButton() {
         supportFragmentManager.popBackStack()
         showAppBar()
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        val focusView = currentFocus ?: return super.dispatchTouchEvent(event)
+        event ?: return super.dispatchTouchEvent(event)
+        val rect = Rect()
+        focusView.getGlobalVisibleRect(rect)
+        val x = event.x.toInt()
+        val y = event.y.toInt()
+        if (!rect.contains(x, y)) {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(focusView.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(event)
+
     }
 }
