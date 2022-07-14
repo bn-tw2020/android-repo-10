@@ -9,7 +9,7 @@ import com.github.repo.domain.dto.NotificationDto
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationRvAdapter() : RecyclerView.Adapter<NotificationRvAdapter.ViewHolder>() {
+class NotificationRvAdapter : RecyclerView.Adapter<NotificationRvAdapter.ViewHolder>() {
 
     private val notificationDtoList = ArrayList<NotificationDto>()
 
@@ -41,7 +41,7 @@ class NotificationRvAdapter() : RecyclerView.Adapter<NotificationRvAdapter.ViewH
         val updateDate: Date = mFormat.parse(date)
         updateDate.compareTo(currentDate)
 
-        val diff: Long = currentDate.getTime() - updateDate.getTime()
+        val diff: Long = currentDate.time - updateDate.time
         val seconds = diff / 1000
         val minutes = seconds / 60
         val hours = minutes / 60
