@@ -1,5 +1,6 @@
 package com.github.repo.data.network
 
+import com.github.repo.data.dto.GithubIssueDto
 import com.github.repo.data.dto.GithubSearchDto
 import com.github.repo.data.dto.GithubNotificationDto
 import com.github.repo.data.dto.GithubTokenDto
@@ -20,10 +21,12 @@ interface GitHubService {
     @GET("search/repositories")
     suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
 
-    @GET("/notifications")
+    @GET("/notifications?all=true")
     suspend fun getNotifications(
         @Header("Authorization") token: String,
         @Header("Accept") accept: String = "Accept: application/vnd.github+json"
     ): List<GithubNotificationDto>
 
+    @GET
+    suspend fun getIssueFromNotification(@Url url: String): GithubIssueDto
 }

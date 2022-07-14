@@ -1,5 +1,7 @@
 package com.github.repo.data.repository
 
+import android.util.Log
+import com.github.repo.config.GITHUB_API
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubSearch
 import com.github.repo.domain.model.GithubSearch
@@ -17,16 +19,22 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                 .onFailure { throw it }
                 .onSuccess { list ->
                     list.forEach {
-                        notificationList.add(
-                            NotificationDto(
-                                thumbnailUrl = it.repository.owner.avatarUrl,
-                                repoName = it.repository.fullName,
-                                notificationTitle = it.subject.title,
-                                issueNumber = 3,
-                                updateTime = it.updatedAt,
-                                commentCount = 2,
-                            )
-                        )
+                        githubDataSource.getIssueFromNotification(it.subject.url)
+                            .onFailure { fail ->
+                                throw fail
+                            }
+                            .onSuccess { dto ->
+                                notificationList.add(
+                                    NotificationDto(
+                                        thumbnailUrl = it.repository.owner.avatarUrl,
+                                        repoName = it.repository.fullName,
+                                        notificationTitle = it.subject.title,
+                                        issueNumber = dto.number,
+                                        updateTime = it.updatedAt,
+                                        commentCount = dto.comments,
+                                    )
+                                )
+                            }
                     }
                 }
             notificationList
