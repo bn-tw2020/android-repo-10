@@ -1,7 +1,7 @@
 package com.github.repo.domain.repository
 
 import com.github.repo.domain.model.GithubSearch
-import com.github.repo.domain.dto.Notification
+import com.github.repo.domain.model.Notification
 
 interface GithubRepository {
 

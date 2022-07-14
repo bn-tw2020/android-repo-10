@@ -1,4 +1,4 @@
-package com.github.repo.domain.dto
+package com.github.repo.domain.model
 
 data class Notification (
     val thumbnailUrl: String,

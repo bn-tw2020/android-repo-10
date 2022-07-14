@@ -1,6 +1,6 @@
 package com.github.repo.presentation.main.notifications
 
-import com.github.repo.domain.dto.Notification
+import com.github.repo.domain.model.Notification
 
 sealed class UiState {
     object Error : UiState()
