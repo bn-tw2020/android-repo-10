@@ -6,7 +6,7 @@ data class GithubIssueDto(
     @Json(name = "active_lock_reason")
     val activeLockReason: Any?,
     @Json(name = "assignee")
-    val assignee: GithubAssigneeDto,
+    val assignee: GithubAssigneeDto?,
     @Json(name = "assignees")
     val assignees: List<GithubAssigneeDto>,
     @Json(name = "author_association")
@@ -36,7 +36,7 @@ data class GithubIssueDto(
     @Json(name = "locked")
     val locked: Boolean,
     @Json(name = "milestone")
-    val milestone: GithubMilestoneDto,
+    val milestone: GithubMilestoneDto?,
     @Json(name = "node_id")
     val nodeId: String?,
     @Json(name = "number")
