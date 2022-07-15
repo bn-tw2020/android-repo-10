@@ -21,15 +21,21 @@ interface GitHubService {
     @GET("search/repositories")
     suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
 
-    @GET("/notifications?all=true")
+    @GET("/notifications")
     suspend fun getNotifications(
         @Header("Authorization") token: String,
         @Header("Accept") accept: String = "Accept: application/vnd.github+json"
     ): List<GithubNotificationDto>
 
     @GET
-    suspend fun getIssueFromNotification(@Url url: String): GithubIssueDto
+    suspend fun getIssueFromNotification(
+        @Header("Authorization") token: String,
+        @Url url: String
+    ): GithubIssueDto
 
     @PATCH("/notifications/threads/{thread_id}")
-    suspend fun removeNotification(@Path("thread_id") id: String): GithubIssueDto
+    suspend fun removeNotification(
+        @Header("Authorization") token: String,
+        @Path("thread_id") id: String
+    )
 }

@@ -17,7 +17,7 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                 .onFailure { throw it }
                 .onSuccess { list ->
                     list.forEach {
-                        githubDataSource.getIssueFromNotification(it.subject.url)
+                        githubDataSource.getIssueFromNotification(token, it.subject.url)
                             .onFailure { fail -> throw fail }
                             .onSuccess { dto ->
                                 notificationList.add(
@@ -37,8 +37,8 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
             notificationList
         }
 
-    override suspend fun removeNotification(id: String): Result<Unit> =
-        githubDataSource.removeNotification(id)
+    override suspend fun removeNotification(token: String, id: String): Result<Unit> =
+        githubDataSource.removeNotification(token, id)
 
     override suspend fun getProfile() {}
 
