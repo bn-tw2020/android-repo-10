@@ -13,7 +13,7 @@ class SearchViewModel(
     private val githubRepository: GithubRepository,
 ) : ViewModel() {
 
-    val searchKeyword = MutableStateFlow("")
+    val searchKeyword = MutableStateFlow(BLANK)
 
     @ExperimentalCoroutinesApi
     @FlowPreview
@@ -30,4 +30,11 @@ class SearchViewModel(
             }
         }.asLiveData()
 
+    fun clearKeyword() {
+        searchKeyword.value = BLANK
+    }
+
+    companion object {
+        const val BLANK = ""
+    }
 }

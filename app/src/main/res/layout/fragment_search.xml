@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_main"
@@ -28,47 +29,59 @@
             app:toolbarTitle="@string/fragment_search"
             app:toolbarTitleColor="@color/white" />
 
-        <EditText
-            android:id="@+id/et_search"
-            style="@style/SubTitle2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:autofillHints="@null"
-            android:background="@drawable/edittext_background"
-            android:hint="@string/hint_search"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:paddingStart="56dp"
-            android:paddingEnd="56dp"
-            android:text="@={viewModel.searchKeyword}"
-            android:textColor="@color/white"
-            android:textColorHint="@color/grey"
+            android:background="@drawable/btn_deactive_14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_search" />
+            app:layout_constraintTop_toBottomOf="@id/tb_search">
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/label_search_icon"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@id/et_search"
-            app:layout_constraintStart_toStartOf="@id/et_search"
-            app:layout_constraintTop_toTopOf="@id/et_search" />
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/label_search_icon"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:contentDescription="@string/label_search_clear_icon"
-            android:src="@drawable/ic_variant10"
-            app:layout_constraintBottom_toBottomOf="@id/et_search"
-            app:layout_constraintEnd_toEndOf="@id/et_search"
-            app:layout_constraintTop_toTopOf="@id/et_search" />
+            <EditText
+                android:id="@+id/et_search"
+                style="@style/SubTitle2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="@null"
+                android:background="@android:color/transparent"
+                android:hint="@string/hint_search"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:maxLines="1"
+                android:paddingEnd="24dp"
+                android:text="@={viewModel.searchKeyword}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_search"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:contentDescription="@string/label_search_clear_icon"
+                android:src="@drawable/ic_variant10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_repository"
@@ -82,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search"
+            app:layout_constraintTop_toBottomOf="@id/layout_edit"
             tools:listitem="@layout/item_repository" />
 
         <TextView
@@ -100,6 +113,8 @@
             style="@style/AppBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="10dp"
             android:text="@string/search_blank_description"
             android:textColor="@color/grey" />
 
