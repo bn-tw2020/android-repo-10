@@ -18,4 +18,7 @@ class GithubDataSource(private val gitHubService: GitHubService) {
 
     suspend fun getIssueFromNotification(url: String): Result<GithubIssueDto>
             = runCatching { gitHubService.getIssueFromNotification(url) }
+
+    suspend fun removeNotification(id: String): Result<Unit>
+            = runCatching { gitHubService.removeNotification(id) }
 }

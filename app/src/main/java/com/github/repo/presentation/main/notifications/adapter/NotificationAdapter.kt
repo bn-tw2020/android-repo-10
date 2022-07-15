@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.github.repo.databinding.ItemNotificationBinding
-import com.github.repo.domain.dto.Notification
+import com.github.repo.domain.model.Notification
 import com.github.repo.utils.DateUtils
-import java.util.*
 
 class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
@@ -16,6 +15,13 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>
     fun addItemList(list: List<Notification>) {
         notificationDtoList.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(position: Int): Notification {
+        val notification = notificationDtoList.removeAt(position)
+        notifyItemRemoved(position)
+
+        return notification
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder = ViewHolder(

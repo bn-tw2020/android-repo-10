@@ -19,7 +19,7 @@ data class GithubReactionsDto(
     @Json(name = "total_count")
     val totalCount: Int,
     @Json(name = "url")
-    val url: String,
+    val url: String?,
     @Json(name = "+1")
     val plus: Int,
     @Json(name = "-1")

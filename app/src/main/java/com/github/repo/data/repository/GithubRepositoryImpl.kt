@@ -3,7 +3,7 @@ package com.github.repo.data.repository
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubSearch
 import com.github.repo.domain.model.GithubSearch
-import com.github.repo.domain.dto.Notification
+import com.github.repo.domain.model.Notification
 import com.github.repo.domain.repository.GithubRepository
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
@@ -18,9 +18,7 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                 .onSuccess { list ->
                     list.forEach {
                         githubDataSource.getIssueFromNotification(it.subject.url)
-                            .onFailure { fail ->
-                                throw fail
-                            }
+                            .onFailure { fail -> throw fail }
                             .onSuccess { dto ->
                                 notificationList.add(
                                     Notification(
@@ -30,6 +28,7 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                                         issueNumber = dto.number,
                                         updateTime = it.updatedAt,
                                         commentCount = dto.comments,
+                                        threadId = it.id
                                     )
                                 )
                             }
@@ -37,6 +36,9 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
                 }
             notificationList
         }
+
+    override suspend fun removeNotification(id: String): Result<Unit> =
+        githubDataSource.removeNotification(id)
 
     override suspend fun getProfile() {}
 

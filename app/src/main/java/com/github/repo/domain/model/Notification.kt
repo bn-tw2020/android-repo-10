@@ -1,4 +1,4 @@
-package com.github.repo.domain.dto
+package com.github.repo.domain.model
 
 data class Notification (
     val thumbnailUrl: String,
@@ -7,4 +7,5 @@ data class Notification (
     val issueNumber: Int,
     val updateTime: String,
     val commentCount: Int,
+    val threadId: String,
 )
