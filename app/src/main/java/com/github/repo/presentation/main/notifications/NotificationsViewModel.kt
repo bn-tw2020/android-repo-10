@@ -14,18 +14,19 @@ class NotificationsViewModel(
     private val tokenSharedPreference: TokenSharedPreference
 ) : ViewModel() {
 
+    private val token = "token ${tokenSharedPreference.getToken()}"
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
 
     fun getNotifications() = viewModelScope.launch {
         _uiState.value = UiState.Loading
-        githubRepository.getNotifications("token ${tokenSharedPreference.getToken()}")
+        githubRepository.getNotifications(token)
             .onSuccess { _uiState.value = UiState.GetNotifications(it) }
             .onFailure { _uiState.value = UiState.Error }
     }
 
     fun removeNotification(id: String) = viewModelScope.launch {
-        githubRepository.removeNotification(id)
+        githubRepository.removeNotification(token, id)
             .onSuccess { Log.d("Tester", "Success") }
             .onFailure { it.printStackTrace() }
     }

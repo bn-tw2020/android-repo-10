@@ -9,5 +9,5 @@ interface GithubRepository {
     suspend fun getNotifications(token: String): Result<List<Notification>>
     suspend fun getProfile()
     suspend fun searchRepositories(keyword: String): Result<GithubSearch>
-    suspend fun removeNotification(id: String): Result<Unit>
+    suspend fun removeNotification(token: String, id: String): Result<Unit>
 }
