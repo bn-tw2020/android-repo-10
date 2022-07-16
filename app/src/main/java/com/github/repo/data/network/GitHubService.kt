@@ -1,8 +1,8 @@
 package com.github.repo.data.network
 
 import com.github.repo.data.dto.GithubIssueDto
-import com.github.repo.data.dto.GithubSearchDto
 import com.github.repo.data.dto.GithubNotificationDto
+import com.github.repo.data.dto.GithubSearchDto
 import com.github.repo.data.dto.GithubTokenDto
 import retrofit2.http.*
 
@@ -24,7 +24,8 @@ interface GitHubService {
     @GET("/notifications")
     suspend fun getNotifications(
         @Header("Authorization") token: String,
-        @Header("Accept") accept: String = "Accept: application/vnd.github+json"
+        @Header("Accept") accept: String = "Accept: application/vnd.github+json",
+        @Query("per_page") perPage: Int = 20
     ): List<GithubNotificationDto>
 
     @GET
