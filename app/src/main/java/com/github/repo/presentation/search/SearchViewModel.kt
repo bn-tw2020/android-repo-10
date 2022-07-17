@@ -3,6 +3,7 @@ package com.github.repo.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.github.repo.domain.repository.GithubRepository
+import com.github.repo.presentation.common.UiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,7 @@ class SearchViewModel(
             } else {
                 val githubSearch = githubRepository.searchRepositories(query).getOrNull()
                 githubSearch?.let {
-                    UiState.GetRepositories(it)
+                    UiState.Success(it)
                 } ?: UiState.Error
             }
         }.asLiveData()

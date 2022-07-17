@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.repo.databinding.FragmentNotificationsBinding
 import com.github.repo.domain.model.Notification
+import com.github.repo.presentation.common.onError
+import com.github.repo.presentation.common.onLoading
+import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.main.notifications.adapter.NotificationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -84,7 +87,8 @@ class NotificationsFragment : Fragment() {
             override fun clearView(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
-            ) = getDefaultUIUtil().clearView((viewHolder as NotificationAdapter.ViewHolder).binding.layoutSwipe)
+            ) =
+                getDefaultUIUtil().clearView((viewHolder as NotificationAdapter.ViewHolder).binding.layoutSwipe)
         }
         ItemTouchHelper(simpleItemTouchCallback)
             .attachToRecyclerView(binding.rvNotification)
@@ -92,10 +96,10 @@ class NotificationsFragment : Fragment() {
 
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Error -> handleError()
-                is UiState.Loading -> handleLoading()
-                is UiState.GetNotifications -> handleSuccess(state.notificationList)
+            with(state) {
+                onSuccess { handleSuccess(it) }
+                onError { handleError() }
+                onLoading { handleLoading() }
             }
         }
     }
