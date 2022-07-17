@@ -5,37 +5,40 @@ import com.github.repo.data.dto.toGithubSearch
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.model.Notification
 import com.github.repo.domain.repository.GithubRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
     override suspend fun getIssues() {}
 
-    override suspend fun getNotifications(token: String): Result<List<Notification>> =
-        runCatching {
-            val notificationList = mutableListOf<Notification>()
-            githubDataSource.getNotifications(token)
-                .onFailure { throw it }
-                .onSuccess { list ->
-                    list.forEach {
-                        githubDataSource.getIssueFromNotification(token, it.subject.url)
-                            .onFailure { fail -> throw fail }
-                            .onSuccess { dto ->
-                                notificationList.add(
-                                    Notification(
-                                        thumbnailUrl = it.repository.owner.avatarUrl,
-                                        repoName = it.repository.fullName,
-                                        notificationTitle = it.subject.title,
-                                        issueNumber = dto.number,
-                                        updateTime = it.updatedAt,
-                                        commentCount = dto.comments,
-                                        threadId = it.id
-                                    )
-                                )
-                            }
-                    }
+    override suspend fun getNotifications(token: String): Result<List<Notification>> {
+        val updatedNotification = mutableListOf<Notification>()
+        val notificationList = githubDataSource.getNotifications(token).getOrThrow()
+        return withContext(CoroutineScope(Dispatchers.Main.immediate).coroutineContext) {
+            notificationList.forEach { notification ->
+                launch {
+                    val issue =
+                        githubDataSource.getIssueFromNotification(token, notification.subject.url)
+                            .getOrThrow()
+                    updatedNotification.add(
+                        Notification(
+                            thumbnailUrl = notification.repository.owner.avatarUrl,
+                            repoName = notification.repository.fullName,
+                            notificationTitle = notification.subject.title,
+                            issueNumber = issue.number,
+                            updateTime = notification.updatedAt,
+                            commentCount = issue.comments,
+                            threadId = notification.id
+                        )
+                    )
                 }
-            notificationList
+            }
+            runCatching { updatedNotification }
         }
+    }
 
     override suspend fun removeNotification(token: String, id: String): Result<Unit> =
         githubDataSource.removeNotification(token, id)
