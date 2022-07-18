@@ -1,5 +1,6 @@
 package com.github.repo.presentation.profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -25,9 +26,9 @@ class ProfileViewModel(
     val uiState = myProfile.asLiveData()
 
     fun getMyProfile() = viewModelScope.launch {
-        myProfile.tryEmit(UiState.Loading)
+        myProfile.emit(UiState.Loading)
         githubRepository.getMyProfile(token)
-            .onSuccess { myProfile.tryEmit(UiState.Success(it)) }
-            .onFailure { myProfile.tryEmit(UiState.Error) }
+            .onSuccess { myProfile.emit(UiState.Success(it)) }
+            .onFailure { myProfile.emit(UiState.Error) }
     }
 }
