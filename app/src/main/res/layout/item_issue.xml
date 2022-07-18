@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="19dp"
+        tools:background="@color/navy_light">
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_issue_closed" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/SubTitle2.grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_status"
+            app:layout_constraintStart_toEndOf="@id/iv_status"
+            app:layout_constraintTop_toTopOf="@id/iv_status"
+            tools:text="sam/whatsinmygithub" />
+
+        <TextView
+            android:id="@+id/tv_issue_number"
+            style="@style/SubTitle2.grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_status"
+            app:layout_constraintStart_toEndOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="@id/iv_status"
+            tools:text="#1" />
+
+        <TextView
+            android:id="@+id/tv_update_time"
+            style="@style/SubTitle2.grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_status"
+            tools:text="1일 전" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/SubTitle2.white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="프로젝트 요구사항 및 참고자료" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
