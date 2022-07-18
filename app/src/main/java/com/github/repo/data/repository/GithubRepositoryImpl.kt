@@ -1,8 +1,9 @@
 package com.github.repo.data.repository
 
 import com.github.repo.data.datasource.GithubDataSource
-import com.github.repo.data.dto.GithubIssueDto
+import com.github.repo.data.dto.toGithubIssue
 import com.github.repo.data.dto.toGithubSearch
+import com.github.repo.domain.model.GithubIssue
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.model.Notification
 import com.github.repo.domain.repository.GithubRepository
@@ -13,8 +14,9 @@ import kotlinx.coroutines.withContext
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
-    override suspend fun getIssues(token: String, state: String): Result<List<GithubIssueDto>> {
-        return githubDataSource.getIssues(token, state)
+    override suspend fun getIssues(token: String, state: String): Result<List<GithubIssue>> {
+        val issues = githubDataSource.getIssues(token, state).getOrDefault(emptyList())
+        return runCatching { issues.map { it.toGithubIssue() } }
     }
 
     override suspend fun getNotifications(token: String): Result<List<Notification>> {

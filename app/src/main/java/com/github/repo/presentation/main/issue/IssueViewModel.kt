@@ -1,11 +1,14 @@
 package com.github.repo.presentation.main.issue
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.repo.data.datasource.TokenSharedPreference
+import com.github.repo.domain.model.GithubIssue
 import com.github.repo.domain.repository.GithubRepository
+import com.github.repo.presentation.common.UiState
 import kotlinx.coroutines.launch
 
 class IssueViewModel(
@@ -17,12 +20,16 @@ class IssueViewModel(
     private val _items = MutableLiveData(listOf("Open", "Closed", "All"))
     val items: LiveData<List<String>> = _items
 
+    private val _uiState = MutableLiveData<UiState<List<GithubIssue>>>()
+    val uiState: LiveData<UiState<List<GithubIssue>>> = _uiState
+
     init {
         getIssues()
     }
 
     private fun getIssues(state: String = "open") = viewModelScope.launch {
         val issues = repository.getIssues(token, state).getOrThrow()
+        Log.d("test", "getIssues: $issues")
     }
 
 }
