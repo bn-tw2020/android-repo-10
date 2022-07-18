@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import com.github.repo.R
 import com.github.repo.databinding.FragmentIssueBinding
 import com.github.repo.presentation.main.issue.adapter.SpinnerAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class IssueFragment : Fragment() {
 
     private lateinit var binding: FragmentIssueBinding
-    private val spinnerAdapter by lazy { SpinnerAdapter(requireContext()) }
+    private val viewModel: IssueViewModel by viewModel()
+    private lateinit var spinnerAdapter: SpinnerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,15 +29,19 @@ class IssueFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        binding.lifecycleOwner = viewLifecycleOwner
+        observeData()
     }
 
-    private fun initView() {
-        setSpinnerSetting()
+    private fun observeData() {
+        viewModel.items.observe(viewLifecycleOwner) { items ->
+            spinnerAdapter = SpinnerAdapter(requireContext(), items)
+            binding.spinnerIssueFilter.adapter = spinnerAdapter
+            setSpinnerSetting()
+        }
     }
 
     private fun setSpinnerSetting() {
-        binding.spinnerIssueFilter.adapter = spinnerAdapter
         binding.layoutFilter.setOnClickListener { binding.spinnerIssueFilter.performClick() }
         binding.spinnerIssueFilter.viewTreeObserver.addOnWindowFocusChangeListener {
             when (it) {
@@ -47,13 +53,8 @@ class IssueFragment : Fragment() {
         binding.spinnerIssueFilter.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    spinnerAdapter.setSelectedPosition(position)
-                }
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) = spinnerAdapter.setSelectedPosition(position)
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }

@@ -11,10 +11,12 @@ import com.github.repo.R
 import com.github.repo.databinding.ItemSpinnerContentBinding
 import com.github.repo.databinding.ItemSpinnerTitleBinding
 
-class SpinnerAdapter(private val context: Context) : BaseAdapter() {
+class SpinnerAdapter(
+    private val context: Context,
+    private val items: List<String>
+) : BaseAdapter() {
 
-    private val items: List<String> = listOf("Open", "Closed", "All")
-    private var selectedPosition = 0
+    private var selectedPosition: Int = 0
 
     override fun getCount(): Int = items.size
 
@@ -27,14 +29,14 @@ class SpinnerAdapter(private val context: Context) : BaseAdapter() {
             ?: LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_spinner_title, parent, false)
         val binding = ItemSpinnerTitleBinding.bind(view)
-        binding.tvSpinnerTitle.text = items[position]
+        binding.title = items[position]
         return binding.root
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding =
             ItemSpinnerContentBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
-        binding.tvSpinnerContent.text = items[position]
+        binding.content = items[position]
         onChecked(position, binding.tvSpinnerContent)
         return binding.root
     }

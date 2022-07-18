@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="content"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +23,7 @@
             android:checkMark="@drawable/checkbox_custom"
             android:gravity="center"
             android:padding="16dp"
+            android:text="@{content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
