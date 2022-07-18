@@ -81,6 +81,10 @@ class ProfileFragment : Fragment() {
             binding.tvBioDescription.text = it
             binding.tvBioDescription.isVisible = true
         }
+        profile.blogUrl?.let {
+            binding.itemBlog.text = it
+            binding.itemBlog.isVisible = true
+        }
         profile.location?.let {
             binding.itemLivePlace.text = it
             binding.itemLivePlace.isVisible = true
