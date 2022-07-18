@@ -16,12 +16,15 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.repo.R
 import com.github.repo.databinding.FragmentSearchBinding
+import com.github.repo.domain.model.GithubSearch
 import com.github.repo.presentation.common.Clickable
+import com.github.repo.presentation.common.onError
+import com.github.repo.presentation.common.onLoading
+import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.search.adapter.RepositoryAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-
 
 class SearchFragment : Fragment() {
 
@@ -99,10 +102,10 @@ class SearchFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Error -> handleError()
-                is UiState.Loading -> handleLoading()
-                is UiState.GetRepositories -> handleSuccess(state)
+            with(state) {
+                onSuccess { handleSuccess(it) }
+                onError { handleError() }
+                onLoading { handleLoading() }
             }
         }
 
@@ -116,11 +119,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess(state: UiState.GetRepositories) {
+    private fun handleSuccess(result: GithubSearch) {
         binding.rvRepository.isVisible = true
         binding.pbLoading.isVisible = false
         binding.layoutBlank.isVisible = false
-        adapter.submitList(state.repositories.items)
+        adapter.submitList(result.items)
     }
 
     private fun handleLoading() {

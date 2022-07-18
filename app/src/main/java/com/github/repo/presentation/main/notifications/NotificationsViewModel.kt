@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.repo.data.datasource.TokenSharedPreference
+import com.github.repo.domain.model.Notification
 import com.github.repo.domain.repository.GithubRepository
+import com.github.repo.presentation.common.UiState
 import kotlinx.coroutines.launch
 
 class NotificationsViewModel(
@@ -15,13 +17,13 @@ class NotificationsViewModel(
 ) : ViewModel() {
 
     private val token = "token ${tokenSharedPreference.getToken()}"
-    private val _uiState = MutableLiveData<UiState>()
-    val uiState: LiveData<UiState> = _uiState
+    private val _uiState = MutableLiveData<UiState<List<Notification>>>()
+    val uiState: LiveData<UiState<List<Notification>>> = _uiState
 
     fun getNotifications() = viewModelScope.launch {
         _uiState.value = UiState.Loading
         githubRepository.getNotifications(token)
-            .onSuccess { _uiState.value = UiState.GetNotifications(it) }
+            .onSuccess { _uiState.value = UiState.Success(it) }
             .onFailure { _uiState.value = UiState.Error }
     }
 

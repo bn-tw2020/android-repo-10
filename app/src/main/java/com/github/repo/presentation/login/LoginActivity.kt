@@ -11,6 +11,9 @@ import androidx.databinding.DataBindingUtil
 import com.github.repo.R
 import com.github.repo.config.GITHUB_OAUTH_URL
 import com.github.repo.databinding.ActivityLoginBinding
+import com.github.repo.presentation.common.onError
+import com.github.repo.presentation.common.onLoading
+import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,10 +36,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeData() {
         viewModel.uiState.observe(this) { state ->
-            when (state) {
-                is UiState.Error -> handleError()
-                is UiState.Loading -> handleLoading()
-                is UiState.GetToken -> handleSuccess()
+            with(state) {
+                onError { handleError() }
+                onSuccess { handleSuccess() }
+                onLoading { handleLoading() }
             }
         }
     }
