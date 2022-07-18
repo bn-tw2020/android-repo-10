@@ -1,9 +1,6 @@
 package com.github.repo.data.network
 
-import com.github.repo.data.dto.GithubIssueDto
-import com.github.repo.data.dto.GithubNotificationDto
-import com.github.repo.data.dto.GithubSearchDto
-import com.github.repo.data.dto.GithubTokenDto
+import com.github.repo.data.dto.*
 import retrofit2.http.*
 
 interface GitHubService {
@@ -39,4 +36,16 @@ interface GitHubService {
         @Header("Authorization") token: String,
         @Path("thread_id") id: String
     )
+
+    @GET("/user")
+    suspend fun getMyProfile(@Header("Authorization") token: String): GithubProfileDto
+
+    @GET("/users/{user}/starred")
+    suspend fun getStarred(@Path("user") userName: String): List<GithubStarredDto>
+
+    @GET("/users/{user}/orgs")
+    suspend fun getOrganization(
+        @Header("Authorization") token: String,
+        @Path("user") userName: String
+    ): List<GithubOrganizationDto>
 }

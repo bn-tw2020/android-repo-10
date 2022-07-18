@@ -2,8 +2,10 @@ package com.github.repo.data.repository
 
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubSearch
+import com.github.repo.data.dto.toProfile
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.model.Notification
+import com.github.repo.domain.model.Profile
 import com.github.repo.domain.repository.GithubRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +45,13 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     override suspend fun removeNotification(token: String, id: String): Result<Unit> =
         githubDataSource.removeNotification(token, id)
 
-    override suspend fun getProfile() {}
+    override suspend fun getMyProfile(token: String): Result<Profile>{
+        val data = githubDataSource.getMyProfile(token).getOrThrow()
+        val starredCount = githubDataSource.getStarred(data.name).getOrThrow().count()
+        val organizationCount = githubDataSource.getOrganization(token, data.name).getOrThrow().count()
+
+        return runCatching{ data.toProfile(organCount = organizationCount, starCount = starredCount) }
+    }
 
     override suspend fun searchRepositories(keyword: String): Result<GithubSearch> {
         return githubDataSource.searchRepositories(keyword).map {
