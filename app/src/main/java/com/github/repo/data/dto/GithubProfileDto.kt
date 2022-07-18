@@ -67,7 +67,11 @@ data class GithubProfileDto(
     @Json(name = "updated_at")
     var updatedAt: String?,
     @Json(name = "url")
-    var url: String?
+    var url: String?,
+    @Json(name = "total_private_repos")
+    var totalPrivateRepos: Int,
+    @Json(name = "owned_private_repos")
+    var ownedPrivateRepos: Int,
 )
 
 fun GithubProfileDto.toProfile(organCount: Int, starCount: Int): Profile {
@@ -82,7 +86,7 @@ fun GithubProfileDto.toProfile(organCount: Int, starCount: Int): Profile {
         email = email,
         followerCount = followers,
         followingCount = following,
-        repositoryCount = publicRepos,
+        repositoryCount = publicRepos + totalPrivateRepos,
         organizationCount = organCount,
         starredCount = starCount
     )
