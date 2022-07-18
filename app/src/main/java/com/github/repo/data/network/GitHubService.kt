@@ -17,6 +17,14 @@ interface GitHubService {
         @Field("code") code: String
     ): GithubTokenDto
 
+    @GET("user/issues")
+    suspend fun getIssues(
+        @Header("Authorization") token: String,
+        @Query("state") state: String,
+        @Query("per_page") perPage: Int = 20,
+        @Query("page") page: Int = 1,
+        @Header("Accept") accept: String = "Accept: application/vnd.github+json",
+    ): List<GithubIssueDto>
 
     @GET("search/repositories")
     suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
