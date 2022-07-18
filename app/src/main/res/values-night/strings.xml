@@ -16,4 +16,5 @@
     <string name="search_blank_description">Search all of GitHub for People,\n Repositories, Organizations, Issues,\n and Pull Requests.</string>
     <string name="notification_error">네트워크 상에 문제가 발생했습니다!</string>
     <string name="issue_filter">Filter</string>
+    <string name="label_issue_state">label_issue_state</string>
 </resources>

@@ -10,15 +10,15 @@ data class GithubIssueDto(
     @Json(name = "author_association") val authorAssociation: String,
     @Json(name = "body") val body: String,
     @Json(name = "closed_at") val closedAt: String?,
-    @Json(name = "closed_by") val closedBy: String?,
+    @Json(name = "closed_by") val closedBy: Any?,
     @Json(name = "comments") val comments: Int,
     @Json(name = "comments_url") val commentsUrl: String,
     @Json(name = "created_at") val createdAt: String,
-    @Json(name = "events_url") val eventsUrl: String,
+    @Json(name = "events_url") val eventsUrl: String?,
     @Json(name = "html_url") val htmlUrl: String?,
     @Json(name = "id") val id: Int,
     @Json(name = "labels") val labels: List<GithubLabelDto>,
-    @Json(name = "labels_url") val labelsUrl: String,
+    @Json(name = "labels_url") val labelsUrl: String?,
     @Json(name = "locked") val locked: Boolean,
     @Json(name = "milestone") val milestone: GithubMilestoneDto?,
     @Json(name = "node_id") val nodeId: String,
@@ -28,8 +28,8 @@ data class GithubIssueDto(
     @Json(name = "timeline_url") val timelineUrl: String?,
     @Json(name = "number") val number: Int,
     @Json(name = "pull_request") val pullRequest: GithubPullRequestDto?,
-    @Json(name = "repository") val repository: GithubRepositoryDto,
-    @Json(name = "repository_url") val repositoryUrl: String,
+    @Json(name = "repository") val repository: GithubRepositoryDto?,
+    @Json(name = "repository_url") val repositoryUrl: String?,
     @Json(name = "state") val state: String,
     @Json(name = "title") val title: String,
     @Json(name = "updated_at") val updatedAt: String,
@@ -38,4 +38,4 @@ data class GithubIssueDto(
 )
 
 fun GithubIssueDto.toGithubIssue(): GithubIssue =
-    GithubIssue(state, createdAt, repository.toGithubRepo(), title)
+    GithubIssue(number, state, createdAt, repository?.toGithubRepo(), title)

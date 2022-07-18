@@ -8,7 +8,7 @@ data class GithubRepositoryDto(
     @Json(name = "allow_auto_merge") val allowAutoMerge: Boolean?,
     @Json(name = "allow_merge_commit") val allowMergeCommit: Boolean?,
     @Json(name = "allow_rebase_merge") val allowRebaseMerge: Boolean?,
-    @Json(name = "allow_squash_merge") val allowAquashMerge: Boolean?,
+    @Json(name = "allow_squash_merge") val allowSquashMerge: Boolean?,
     @Json(name = "archive_url") val archiveUrl: String?,
     @Json(name = "archived") val archived: Boolean?,
     @Json(name = "assignees_url") val assigneesUrl: String?,
@@ -98,6 +98,7 @@ fun GithubRepositoryDto.toGithubRepo(): GithubRepo {
     return GithubRepo(
         id.toLong(),
         name,
+        fullName,
         owner.toGithubOwner(),
         description,
         language,

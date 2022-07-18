@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="issue"
+            type="com.github.repo.domain.model.GithubIssue" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,8 +21,10 @@
             android:id="@+id/iv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/label_issue_state"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:setState="@{issue.state}"
             tools:src="@drawable/ic_issue_closed" />
 
         <TextView
@@ -28,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
+            android:text="@{issue.repository.fullName}"
             app:layout_constraintBottom_toBottomOf="@id/iv_status"
             app:layout_constraintStart_toEndOf="@id/iv_status"
             app:layout_constraintTop_toTopOf="@id/iv_status"
@@ -39,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text='@{"#" + issue.number}'
             app:layout_constraintBottom_toBottomOf="@id/iv_status"
             app:layout_constraintStart_toEndOf="@id/tv_title"
             app:layout_constraintTop_toTopOf="@id/iv_status"
@@ -61,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:text="@{issue.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"

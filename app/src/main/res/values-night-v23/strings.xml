@@ -2,4 +2,5 @@
 <resources>
     <string name="hint_search">Search GitHub</string>
     <string name="issue_filter">Filter</string>
+    <string name="label_issue_state">label_issue_state</string>
 </resources>

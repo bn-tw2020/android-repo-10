@@ -1,6 +1,5 @@
 package com.github.repo.presentation.main.issue
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,8 +27,10 @@ class IssueViewModel(
     }
 
     private fun getIssues(state: String = "open") = viewModelScope.launch {
-        val issues = repository.getIssues(token, state).getOrThrow()
-        Log.d("test", "getIssues: $issues")
+        _uiState.value = UiState.Loading
+        repository.getIssues(token, state)
+            .onSuccess { _uiState.value = UiState.Success(it) }
+            .onFailure { _uiState.value = UiState.Error }
     }
 
 }
