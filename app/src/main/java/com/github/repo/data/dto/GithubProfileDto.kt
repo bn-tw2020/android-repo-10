@@ -77,6 +77,7 @@ fun GithubProfileDto.toProfile(organCount: Int, starCount: Int): Profile {
         id = login,
         idontknowthis = "???이거 대체 무슨 내용임??",
         bioDescription = bio,
+        blogUrl = blog,
         location = location,
         email = email,
         followerCount = followers,

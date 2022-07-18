@@ -50,6 +50,7 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
     private fun handleError() {
         binding.tvError.isVisible = true
         binding.layoutProfile.isGone = true
@@ -72,9 +73,22 @@ class ProfileFragment : Fragment() {
             .into(binding.ivProfile)
         binding.tvUserName.text = profile.userName
         binding.tvUserId.text = profile.id
-        profile.bioDescription?.let { binding.tvUserBio.text = it }
-        profile.location?.let { binding.itemLivePlace.text = it }
-        profile.email?.let { binding.itemMail.text = it }
+        profile.idontknowthis?.let {
+            binding.tvUserNothing.text = it
+            binding.tvUserNothing.isVisible = true
+        }
+        profile.bioDescription?.let {
+            binding.tvBioDescription.text = it
+            binding.tvBioDescription.isVisible = true
+        }
+        profile.location?.let {
+            binding.itemLivePlace.text = it
+            binding.itemLivePlace.isVisible = true
+        }
+        profile.email?.let {
+            binding.itemMail.text = it
+            binding.itemMail.isVisible = true
+        }
         binding.itemFriends.setFriends(profile.followerCount, profile.followingCount)
         binding.itemRepository.count = profile.repositoryCount
         binding.itemOrganization.count = profile.organizationCount

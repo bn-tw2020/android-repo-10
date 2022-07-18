@@ -6,6 +6,7 @@ data class Profile (
     val id: String,
     val idontknowthis: String?,
     val bioDescription: String?,
+    val blogUrl: String?,
     val location: String?,
     val email: String?,
     val followerCount: Int,

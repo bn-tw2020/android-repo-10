@@ -89,8 +89,9 @@
                     app:cardCornerRadius="7dp">
 
                     <TextView
-                        android:id="@+id/tv_user_bio"
+                        android:id="@+id/tv_user_nothing"
                         style="@style/SubTitle2.grey"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="8dp"
@@ -101,7 +102,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_bio_description"
                 style="@style/SubTitle2.white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,7 +117,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/grey"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_bio_description" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -131,6 +132,7 @@
                     android:id="@+id/item_live_place"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:visibility="gone"
                     app:contentIcon="@drawable/ic_location"
                     app:contentText="@string/app_name"
                     app:itemType="text" />
@@ -139,6 +141,7 @@
                     android:id="@+id/item_blog"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:visibility="gone"
                     app:contentIcon="@drawable/ic_link"
                     app:contentText="@string/app_name"
                     app:itemType="link" />
@@ -147,6 +150,7 @@
                     android:id="@+id/item_mail"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:visibility="gone"
                     app:contentIcon="@drawable/ic_mail"
                     app:contentText="@string/app_name"
                     app:itemType="mail" />
