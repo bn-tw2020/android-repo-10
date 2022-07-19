@@ -74,7 +74,7 @@ data class GithubProfileDto(
     var ownedPrivateRepos: Int,
 )
 
-fun GithubProfileDto.toProfile(starCount: Int): Profile {
+fun GithubProfileDto.toProfile(organCount: Int, starCount: Int): Profile {
     return Profile(
         profileImgUrl = avatarUrl,
         userName = name,
@@ -86,6 +86,7 @@ fun GithubProfileDto.toProfile(starCount: Int): Profile {
         followerCount = followers,
         followingCount = following,
         repositoryCount = publicRepos + totalPrivateRepos,
+        organizationCount = organCount,
         starredCount = starCount
     )
 }

@@ -11,5 +11,6 @@ data class Profile (
     val followerCount: Int,
     val followingCount: Int,
     val repositoryCount: Int,
+    val organizationCount: Int,
     val starredCount: Int,
 )

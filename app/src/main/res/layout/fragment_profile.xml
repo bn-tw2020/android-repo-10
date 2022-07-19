@@ -175,6 +175,14 @@
                     app:name="Repositories" />
 
                 <com.github.repo.presentation.profile.custom.CustomProfileGithubDataItem
+                    android:id="@+id/item_organization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:count="10"
+                    app:icon="@drawable/ic_users"
+                    app:name="Organizations" />
+
+                <com.github.repo.presentation.profile.custom.CustomProfileGithubDataItem
                     android:id="@+id/item_starred"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

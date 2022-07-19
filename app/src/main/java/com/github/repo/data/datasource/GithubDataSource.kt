@@ -25,4 +25,7 @@ class GithubDataSource(private val gitHubService: GitHubService) {
 
     suspend fun getStarred(userName: String): Result<List<GithubStarredDto>> =
         runCatching { gitHubService.getStarred(userName) }
+
+    suspend fun getOrganization(token: String, userName: String): Result<List<GithubOrganizationDto>> =
+        runCatching { gitHubService.getOrganization(token, userName) }
 }
