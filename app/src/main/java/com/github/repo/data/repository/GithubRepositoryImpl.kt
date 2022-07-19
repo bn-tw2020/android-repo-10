@@ -48,9 +48,8 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     override suspend fun getMyProfile(token: String): Result<Profile>{
         val data = githubDataSource.getMyProfile(token).getOrThrow()
         val starredCount = githubDataSource.getStarred(data.name).getOrThrow().count()
-        val organizationCount = githubDataSource.getOrganization(token, data.name).getOrThrow().count()
 
-        return runCatching{ data.toProfile(organCount = organizationCount, starCount = starredCount) }
+        return runCatching{ data.toProfile(starCount = starredCount) }
     }
 
     override suspend fun searchRepositories(keyword: String): Result<GithubSearch> {

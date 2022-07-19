@@ -95,7 +95,6 @@ class ProfileFragment : Fragment() {
         }
         binding.itemFriends.setFriends(profile.followerCount, profile.followingCount)
         binding.itemRepository.count = profile.repositoryCount
-        binding.itemOrganization.count = profile.organizationCount
         binding.itemStarred.count = profile.starredCount
     }
 }

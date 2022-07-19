@@ -92,13 +92,13 @@
                     <TextView
                         android:id="@+id/tv_user_nothing"
                         style="@style/SubTitle2.grey"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="8dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="8dp"
-                        android:paddingBottom="4dp" />
+                        android:paddingBottom="4dp"
+                        android:visibility="gone" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
@@ -185,14 +185,6 @@
                     app:name="Repositories" />
 
                 <com.github.repo.presentation.profile.custom.CustomProfileGithubDataItem
-                    android:id="@+id/item_organization"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:count="10"
-                    app:icon="@drawable/ic_users"
-                    app:name="Organizations" />
-
-                <com.github.repo.presentation.profile.custom.CustomProfileGithubDataItem
                     android:id="@+id/item_starred"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,25 +196,25 @@
 
         <TextView
             android:id="@+id/tv_error"
+            style="@style/SubTitle2.white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notification_error"
             android:visibility="gone"
-            style="@style/SubTitle2.white"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/pb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
