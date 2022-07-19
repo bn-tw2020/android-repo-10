@@ -16,20 +16,18 @@ class IssueViewModel(
 ) : ViewModel() {
 
     private val token = "token ${tokenSharedPreference.getToken()}"
-    private val _items = MutableLiveData(listOf("Open", "Closed", "All"))
+    private val _items = MutableLiveData(OptionType.create())
     val items: LiveData<List<String>> = _items
 
     private val _uiState = MutableLiveData<UiState<List<GithubIssue>>>()
     val uiState: LiveData<UiState<List<GithubIssue>>> = _uiState
 
-    init {
-        getIssues()
-    }
-
-    private fun getIssues(state: String = "open") = viewModelScope.launch {
+    fun getIssues(state: String) = viewModelScope.launch {
         _uiState.value = UiState.Loading
         repository.getIssues(token, state)
-            .onSuccess { _uiState.value = UiState.Success(it) }
+            .onSuccess {
+                _uiState.value = UiState.Success(it)
+            }
             .onFailure { _uiState.value = UiState.Error }
     }
 

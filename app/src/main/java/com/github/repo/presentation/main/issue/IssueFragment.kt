@@ -16,6 +16,7 @@ import com.github.repo.domain.model.GithubIssue
 import com.github.repo.presentation.common.onError
 import com.github.repo.presentation.common.onLoading
 import com.github.repo.presentation.common.onSuccess
+import com.github.repo.presentation.main.issue.OptionType.*
 import com.github.repo.presentation.main.issue.adapter.IssueAdapter
 import com.github.repo.presentation.main.issue.adapter.SpinnerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,6 +46,10 @@ class IssueFragment : Fragment() {
     }
 
     private fun initView() {
+        adapterSetting()
+    }
+
+    private fun adapterSetting() {
         binding.rvIssue.adapter = issueAdapter
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(requireContext(), R.drawable.recylerview_divider)?.let {
@@ -101,7 +106,14 @@ class IssueFragment : Fragment() {
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                ) = spinnerAdapter.setSelectedPosition(position)
+                ) {
+                    spinnerAdapter.setSelectedPosition(position)
+                    when (position) {
+                        OPEN.position -> viewModel.getIssues(OPEN.optionName)
+                        CLOSED.position -> viewModel.getIssues(CLOSED.optionName)
+                        ALL.position -> viewModel.getIssues(ALL.optionName)
+                    }
+                }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
