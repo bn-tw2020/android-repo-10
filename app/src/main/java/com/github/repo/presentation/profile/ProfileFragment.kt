@@ -73,10 +73,6 @@ class ProfileFragment : Fragment() {
             .into(binding.ivProfile)
         binding.tvUserName.text = profile.userName
         binding.tvUserId.text = profile.id
-        profile.idontknowthis?.let {
-            binding.tvUserNothing.text = it
-            binding.tvUserNothing.isVisible = true
-        }
         profile.bioDescription?.let {
             binding.tvBioDescription.text = it
             binding.tvBioDescription.isVisible = true

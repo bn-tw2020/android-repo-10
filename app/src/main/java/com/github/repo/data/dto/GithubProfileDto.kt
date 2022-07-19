@@ -79,7 +79,6 @@ fun GithubProfileDto.toProfile(starCount: Int): Profile {
         profileImgUrl = avatarUrl,
         userName = name,
         id = login,
-        idontknowthis = "???이거 대체 무슨 내용임??",
         bioDescription = bio,
         blogUrl = blog,
         location = location,

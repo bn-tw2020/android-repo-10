@@ -4,7 +4,6 @@ data class Profile (
     val profileImgUrl: String,
     val userName: String,
     val id: String,
-    val idontknowthis: String?,
     val bioDescription: String?,
     val blogUrl: String?,
     val location: String?,
