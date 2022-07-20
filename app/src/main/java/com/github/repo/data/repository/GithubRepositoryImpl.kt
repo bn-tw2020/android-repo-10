@@ -1,16 +1,16 @@
 package com.github.repo.data.repository
 
+import android.util.Log
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubIssue
 import com.github.repo.data.dto.toGithubSearch
 import com.github.repo.domain.model.GithubIssue
+import com.github.repo.data.dto.toProfile
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.model.Notification
+import com.github.repo.domain.model.Profile
 import com.github.repo.domain.repository.GithubRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
@@ -48,7 +48,18 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     override suspend fun removeNotification(token: String, id: String): Result<Unit> =
         githubDataSource.removeNotification(token, id)
 
-    override suspend fun getProfile() {}
+    override suspend fun getMyProfile(token: String): Result<Profile> {
+        val data = githubDataSource.getMyProfile(token).getOrThrow()
+        val starJob = CoroutineScope(Dispatchers.IO)
+            .async { githubDataSource.getStarred(data.name).getOrThrow().count() }
+        val organJob = CoroutineScope(Dispatchers.IO)
+            .async { githubDataSource.getOrganization(token, data.name).getOrThrow().count() }
+
+        val starredCount = starJob.await()
+        val organizationCount = organJob.await()
+
+        return runCatching { data.toProfile(organCount = organizationCount, starCount = starredCount) }
+    }
 
     override suspend fun searchRepositories(keyword: String): Result<GithubSearch> {
         return githubDataSource.searchRepositories(keyword).map {

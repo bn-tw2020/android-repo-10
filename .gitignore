@@ -4,6 +4,7 @@
 ### Kotlin ###
 # Compiled class file
 *.class
+config.kt
 
 # Log file
 *.log
