@@ -14,19 +14,19 @@ import kotlinx.coroutines.*
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
-    override suspend fun getIssues(token: String, state: String): Result<List<GithubIssue>> {
-        val issues = githubDataSource.getIssues(token, state).getOrDefault(emptyList())
+    override suspend fun getIssues(state: String): Result<List<GithubIssue>> {
+        val issues = githubDataSource.getIssues(state).getOrDefault(emptyList())
         return runCatching { issues.map { it.toGithubIssue() } }
     }
 
-    override suspend fun getNotifications(token: String): Result<List<Notification>> {
+    override suspend fun getNotifications(): Result<List<Notification>> {
         val updatedNotification = mutableListOf<Notification>()
-        val notificationList = githubDataSource.getNotifications(token).getOrThrow()
+        val notificationList = githubDataSource.getNotifications().getOrThrow()
         return withContext(CoroutineScope(Dispatchers.Main.immediate).coroutineContext) {
             notificationList.forEach { notification ->
                 launch {
                     val issue =
-                        githubDataSource.getIssueFromNotification(token, notification.subject.url)
+                        githubDataSource.getIssueFromNotification(notification.subject.url)
                             .getOrThrow()
                     updatedNotification.add(
                         Notification(
@@ -45,15 +45,15 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
         }
     }
 
-    override suspend fun removeNotification(token: String, id: String): Result<Unit> =
-        githubDataSource.removeNotification(token, id)
+    override suspend fun removeNotification(id: String): Result<Unit> =
+        githubDataSource.removeNotification(id)
 
-    override suspend fun getMyProfile(token: String): Result<Profile> {
-        val data = githubDataSource.getMyProfile(token).getOrThrow()
+    override suspend fun getMyProfile(): Result<Profile> {
+        val data = githubDataSource.getMyProfile().getOrThrow()
         val starJob = CoroutineScope(Dispatchers.IO)
             .async { githubDataSource.getStarred(data.login).getOrThrow().count() }
         val organJob = CoroutineScope(Dispatchers.IO)
-            .async { githubDataSource.getOrganization(token, data.login).getOrThrow().count() }
+            .async { githubDataSource.getOrganization(data.login).getOrThrow().count() }
 
         val starredCount = starJob.await()
         val organizationCount = organJob.await()

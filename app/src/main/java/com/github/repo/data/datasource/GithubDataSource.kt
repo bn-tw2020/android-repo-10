@@ -5,8 +5,8 @@ import com.github.repo.data.network.GitHubService
 
 class GithubDataSource(private val gitHubService: GitHubService) {
 
-    suspend fun getIssues(token: String, state: String): Result<List<GithubIssueDto>> {
-        return runCatching { gitHubService.getIssues(token, state) }
+    suspend fun getIssues(state: String): Result<List<GithubIssueDto>> {
+        return runCatching { gitHubService.getIssues(state) }
     }
 
     suspend fun searchRepositories(keyword: String): Result<GithubSearchDto> {
@@ -15,21 +15,21 @@ class GithubDataSource(private val gitHubService: GitHubService) {
         }
     }
 
-    suspend fun getNotifications(token: String): Result<List<GithubNotificationDto>> =
-        runCatching { gitHubService.getNotifications(token) }
+    suspend fun getNotifications(): Result<List<GithubNotificationDto>> =
+        runCatching { gitHubService.getNotifications() }
 
-    suspend fun getIssueFromNotification(token: String, url: String): Result<GithubIssueDto> =
-        runCatching { gitHubService.getIssueFromNotification(token, url) }
+    suspend fun getIssueFromNotification(url: String): Result<GithubIssueDto> =
+        runCatching { gitHubService.getIssueFromNotification(url) }
 
-    suspend fun removeNotification(token: String, id: String): Result<Unit> =
-        runCatching { gitHubService.removeNotification(token, id) }
+    suspend fun removeNotification(id: String): Result<Unit> =
+        runCatching { gitHubService.removeNotification(id) }
 
-    suspend fun getMyProfile(token: String): Result<GithubProfileDto> =
-        runCatching { gitHubService.getMyProfile(token) }
+    suspend fun getMyProfile(): Result<GithubProfileDto> =
+        runCatching { gitHubService.getMyProfile() }
 
     suspend fun getStarred(login: String): Result<List<GithubStarredDto>> =
         runCatching { gitHubService.getStarred(login) }
 
-    suspend fun getOrganization(token: String, login: String): Result<List<GithubOrganizationDto>> =
-        runCatching { gitHubService.getOrganization(token, login) }
+    suspend fun getOrganization(login: String): Result<List<GithubOrganizationDto>> =
+        runCatching { gitHubService.getOrganization(login) }
 }
