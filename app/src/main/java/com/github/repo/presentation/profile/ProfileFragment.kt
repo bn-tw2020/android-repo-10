@@ -2,14 +2,12 @@ package com.github.repo.presentation.profile
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.github.repo.databinding.FragmentProfileBinding
 import com.github.repo.domain.model.Profile
 import com.github.repo.presentation.common.Clickable
@@ -49,7 +47,6 @@ class ProfileFragment : Fragment() {
 
 
     private fun initView() {
-        viewModel.getMyProfile()
         observeData()
         buttonSetting()
     }
