@@ -15,4 +15,5 @@
     <string name="search_blank_title">Find Your Stuff</string>
     <string name="search_blank_description">Search all of GitHub for People,\n Repositories, Organizations, Issues,\n and Pull Requests.</string>
     <string name="notification_error">네트워크 상에 문제가 발생했습니다!</string>
+    <string name="profile_friends_count">%d Followers · %d Following</string>
 </resources>

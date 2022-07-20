@@ -2,8 +2,12 @@ package com.github.repo.presentation.profile.custom
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.TextView
 import android.widget.Toolbar
+import androidx.core.content.res.getStringOrThrow
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.github.repo.R
 import com.github.repo.databinding.ViewProfileUserInfoItemBinding
@@ -21,7 +25,7 @@ class CustomProfileUserInfoItem(
             true
         )
 
-    var text: String = ""
+    var contentText: String = ""
         set(value) {
             field = value
             binding.tvContent.text = value
@@ -30,7 +34,7 @@ class CustomProfileUserInfoItem(
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.CustomProfileUserInfoItem)
         with(binding) {
-            text = a.getString(R.styleable.CustomProfileUserInfoItem_contentText).toString()
+            contentText = a.getString(R.styleable.CustomProfileUserInfoItem_contentText) ?: ""
             ivIcon.setImageResource(
                 a.getResourceId(
                     R.styleable.CustomProfileUserInfoItem_contentIcon,
@@ -41,10 +45,5 @@ class CustomProfileUserInfoItem(
                 a.getInt(R.styleable.CustomProfileUserInfoItem_itemType, 0x00)
         }
         a.recycle()
-    }
-
-    fun setFriends(follower: Int, following: Int) {
-        val friendsText = "$follower Followers · $following Following"
-        this.text = friendsText
     }
 }

@@ -2,6 +2,7 @@ package com.github.repo.presentation.profile
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,30 +87,6 @@ class ProfileFragment : Fragment() {
         binding.pbLoading.isGone = true
         binding.tvError.isGone = true
 
-        Glide.with(this)
-            .load(profile.profileImgUrl)
-            .into(binding.ivProfile)
-        binding.tvUserName.text = profile.userName
-        binding.tvUserId.text = profile.id
-        profile.bioDescription?.let {
-            binding.tvBioDescription.text = it
-            binding.tvBioDescription.isVisible = true
-        }
-        profile.blogUrl?.let {
-            binding.itemBlog.text = it
-            binding.itemBlog.isVisible = true
-        }
-        profile.location?.let {
-            binding.itemLivePlace.text = it
-            binding.itemLivePlace.isVisible = true
-        }
-        profile.email?.let {
-            binding.itemMail.text = it
-            binding.itemMail.isVisible = true
-        }
-        binding.itemFriends.setFriends(profile.followerCount, profile.followingCount)
-        binding.itemRepository.count = profile.repositoryCount
-        binding.itemOrganization.count = profile.organizationCount
-        binding.itemStarred.count = profile.starredCount
+        binding.profile = profile
     }
 }
