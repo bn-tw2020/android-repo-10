@@ -131,7 +131,6 @@ class IssueFragment : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-//                    spinnerAdapter.setSelectedPosition(position)
                     viewModel.setSelectedPosition(position)
                     when (position) {
                         OPEN.position -> viewModel.getIssues(OPEN.optionName)

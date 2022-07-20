@@ -1,6 +1,5 @@
 package com.github.repo.presentation.profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -25,7 +24,11 @@ class ProfileViewModel(
     @FlowPreview
     val uiState = myProfile.asLiveData()
 
-    fun getMyProfile() = viewModelScope.launch {
+    init {
+        getMyProfile()
+    }
+
+    private fun getMyProfile() = viewModelScope.launch {
         myProfile.emit(UiState.Loading)
         githubRepository.getMyProfile(token)
             .onSuccess { myProfile.emit(UiState.Success(it)) }

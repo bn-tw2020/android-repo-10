@@ -31,13 +31,12 @@ class MainActivity : AppCompatActivity(), Clickable {
 
         initView()
         observeData()
+        onSaveFragment()
     }
 
     private fun initView() {
-        viewModel.getMyProfile()
         appBarSetting()
         toggleButtonSetting()
-        changeFragment(IssueFragment(), getString(R.string.fragment_issue), false)
     }
 
     private fun observeData() {
@@ -53,7 +52,11 @@ class MainActivity : AppCompatActivity(), Clickable {
     }
 
     private fun toggleButtonSetting() {
-        binding.rgFragmentTab.setOnCheckedChangeListener { _, id ->
+        binding.rgFragmentTab.setOnCheckedChangeListener { a, id ->
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
+            if (currentFragment?.tag == getString(R.string.fragment_search)
+                || currentFragment?.tag == getString(R.string.fragment_profile)
+            ) return@setOnCheckedChangeListener
             when (id) {
                 R.id.btn_issue -> changeFragment(
                     IssueFragment(),
@@ -117,6 +120,14 @@ class MainActivity : AppCompatActivity(), Clickable {
                 showAppBar()
             }
             else -> super.onBackPressed()
+        }
+    }
+
+    private fun onSaveFragment() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
+        when (currentFragment?.tag) {
+            getString(R.string.fragment_profile) -> hideAppBar()
+            getString(R.string.fragment_search) -> hideAppBar()
         }
     }
 

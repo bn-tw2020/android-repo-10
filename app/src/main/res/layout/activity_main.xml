@@ -88,6 +88,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_main"
+            android:name="com.github.repo.presentation.main.issue.IssueFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="Hello World!"
