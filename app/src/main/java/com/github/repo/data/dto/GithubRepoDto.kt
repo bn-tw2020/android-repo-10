@@ -7,6 +7,7 @@ import com.squareup.moshi.Json
 data class GithubRepoDto(
     val id: Long,
     val name: String,
+    @Json(name = "full_name") val fullName: String,
     val owner: GithubOwnerDto,
     val description: String?,
     val language: String?,
@@ -15,5 +16,14 @@ data class GithubRepoDto(
 
 fun GithubRepoDto.toGithubRepo(): GithubRepo {
     val languageColor = language?.let { colors[it] }
-    return GithubRepo(id, name, owner.toGithubOwner(), description, language, languageColor, star)
+    return GithubRepo(
+        id,
+        name,
+        fullName,
+        owner.toGithubOwner(),
+        description,
+        language,
+        languageColor,
+        star
+    )
 }
