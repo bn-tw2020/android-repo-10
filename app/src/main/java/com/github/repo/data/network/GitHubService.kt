@@ -51,9 +51,9 @@ interface GitHubService {
     @GET("/users/{user}/starred")
     suspend fun getStarred(@Path("user") userName: String): List<GithubStarredDto>
 
-    @GET("/users/{user}/orgs")
+    @GET("/users/{login}/orgs")
     suspend fun getOrganization(
         @Header("Authorization") token: String,
-        @Path("user") userName: String
+        @Path("login") login: String
     ): List<GithubOrganizationDto>
 }

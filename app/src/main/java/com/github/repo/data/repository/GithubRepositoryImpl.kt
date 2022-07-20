@@ -51,9 +51,9 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     override suspend fun getMyProfile(token: String): Result<Profile> {
         val data = githubDataSource.getMyProfile(token).getOrThrow()
         val starJob = CoroutineScope(Dispatchers.IO)
-            .async { githubDataSource.getStarred(data.name).getOrThrow().count() }
+            .async { githubDataSource.getStarred(data.login).getOrThrow().count() }
         val organJob = CoroutineScope(Dispatchers.IO)
-            .async { githubDataSource.getOrganization(token, data.name).getOrThrow().count() }
+            .async { githubDataSource.getOrganization(token, data.login).getOrThrow().count() }
 
         val starredCount = starJob.await()
         val organizationCount = organJob.await()
