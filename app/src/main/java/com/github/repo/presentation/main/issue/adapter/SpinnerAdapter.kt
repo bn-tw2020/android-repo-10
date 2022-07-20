@@ -1,22 +1,18 @@
 package com.github.repo.presentation.main.issue.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckedTextView
-import androidx.core.content.ContextCompat
 import com.github.repo.R
 import com.github.repo.databinding.ItemSpinnerContentBinding
 import com.github.repo.databinding.ItemSpinnerTitleBinding
 
 class SpinnerAdapter(
-    private val context: Context,
-    private val items: List<String>
+    private val items: List<String>,
+    private val onChecked: (CheckedTextView, Int) -> Unit
 ) : BaseAdapter() {
-
-    private var selectedPosition: Int = 0
 
     override fun getCount(): Int = items.size
 
@@ -37,24 +33,8 @@ class SpinnerAdapter(
         val binding =
             ItemSpinnerContentBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
         binding.content = items[position]
-        onChecked(position, binding.tvSpinnerContent)
+        onChecked(binding.tvSpinnerContent, position)
         return binding.root
     }
 
-    private fun onChecked(position: Int, view: CheckedTextView) {
-        when (position) {
-            selectedPosition -> {
-                view.isChecked = true
-                view.setTextColor(ContextCompat.getColor(context, R.color.white))
-            }
-            else -> {
-                view.isChecked = false
-                view.setTextColor(ContextCompat.getColor(context, R.color.grey))
-            }
-        }
-    }
-
-    fun setSelectedPosition(position: Int) {
-        selectedPosition = position
-    }
 }

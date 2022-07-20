@@ -60,7 +60,31 @@ class IssueFragment : Fragment() {
 
     private fun observeData() {
         viewModel.items.observe(viewLifecycleOwner) { items ->
-            spinnerAdapter = SpinnerAdapter(requireContext(), items)
+            spinnerAdapter = SpinnerAdapter(items) { view, position ->
+                viewModel.selectedPosition.observe(viewLifecycleOwner) { selectedPosition ->
+                    when (position) {
+                        selectedPosition -> {
+                            view.isChecked = true
+                            view.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.white
+                                )
+                            )
+                        }
+                        else -> {
+                            view.isChecked = false
+                            view.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.grey
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
             binding.spinnerIssueFilter.adapter = spinnerAdapter
             setSpinnerSetting()
         }
@@ -107,7 +131,8 @@ class IssueFragment : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-                    spinnerAdapter.setSelectedPosition(position)
+//                    spinnerAdapter.setSelectedPosition(position)
+                    viewModel.setSelectedPosition(position)
                     when (position) {
                         OPEN.position -> viewModel.getIssues(OPEN.optionName)
                         CLOSED.position -> viewModel.getIssues(CLOSED.optionName)

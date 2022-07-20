@@ -12,5 +12,10 @@ enum class OptionType(val position: Int, val optionName: String) {
                 it.optionName.replaceFirstChar(Char::titlecase)
             }
         }
+
+        fun value(position: Int): Int? {
+            return values().find { it.position == position }
+                ?.position
+        }
     }
 }
