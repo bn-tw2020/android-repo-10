@@ -8,6 +8,7 @@
             name="notification"
             type="com.github.repo.domain.model.Notification" />
     </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -139,7 +140,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:src="@drawable/ic_user"
-                        android:text="@{notification.commentCount}"
+                        android:text="@{String.valueOf(notification.commentCount)}"
                         android:textColor="@color/primary"
                         android:textSize="12sp" />
                 </androidx.cardview.widget.CardView>
