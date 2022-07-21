@@ -3,7 +3,6 @@ package com.github.repo.presentation.main.notifications.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.github.repo.databinding.ItemNotificationBinding
 import com.github.repo.domain.model.Notification
 import com.github.repo.utils.DateUtils
@@ -41,17 +40,9 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>
 
     inner class ViewHolder(val binding: ItemNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(notificationDto: Notification) {
-            Glide.with(binding.root)
-                .load(notificationDto.thumbnailUrl)
-                .into(binding.ivThumbnail)
-
-            binding.tvRepoName.text = notificationDto.repoName
-            binding.tvNotificationTitle.text = notificationDto.notificationTitle
-            binding.tvIssueNumber.text = "#${notificationDto.issueNumber}"
-
-            binding.tvUpdateTime.text = DateUtils.getUpdateDate(notificationDto.updateTime)
-            binding.tvCommentCount.text = notificationDto.commentCount.toString()
+        fun bind(notification: Notification) {
+            binding.notification = notification
+            binding.tvUpdateTime.text = DateUtils.getUpdateDate(notification.updateTime)
         }
     }
 }

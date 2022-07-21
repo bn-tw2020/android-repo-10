@@ -48,7 +48,9 @@ interface GitHubService {
     suspend fun getMyProfile(): GithubProfileDto
 
     @GET("/users/{user}/starred")
-    suspend fun getStarred(@Path("user") userName: String): List<GithubStarredDto>
+    suspend fun getStarred(
+        @Path("user") userName: String
+    ): List<GithubStarredDto>
 
     @GET("/users/{login}/orgs")
     suspend fun getOrganization(
