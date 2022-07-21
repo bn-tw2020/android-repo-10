@@ -1,6 +1,5 @@
 package com.github.repo.presentation.main.notifications
 
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.github.repo.databinding.FragmentNotificationsBinding
 import com.github.repo.domain.model.Notification
 import com.github.repo.presentation.common.onError
@@ -49,49 +47,11 @@ class NotificationsFragment : Fragment() {
         rvAdapter = NotificationAdapter()
         binding.rvNotification.adapter = rvAdapter
 
-        val simpleItemTouchCallback = object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean = true
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val removeItem = rvAdapter.removeItem(viewHolder.adapterPosition)
-                viewModel.removeNotification(removeItem.threadId)
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                    getDefaultUIUtil().onDraw(
-                        c,
-                        recyclerView,
-                        (viewHolder as NotificationAdapter.ViewHolder).binding.layoutSwipe,
-                        dX,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                }
-            }
-
-            override fun clearView(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-            ) =
-                getDefaultUIUtil().clearView((viewHolder as NotificationAdapter.ViewHolder).binding.layoutSwipe)
+        val swipeHelper = SwipeHelperCallback { position ->
+            val removeItem = rvAdapter.removeItem(position)
+            viewModel.removeNotification(removeItem.threadId)
         }
-        ItemTouchHelper(simpleItemTouchCallback)
-            .attachToRecyclerView(binding.rvNotification)
+        ItemTouchHelper(swipeHelper).attachToRecyclerView(binding.rvNotification)
     }
 
     private fun observeData() {
