@@ -5,8 +5,8 @@ import com.github.repo.data.network.GitHubService
 
 class GithubDataSource(private val gitHubService: GitHubService) {
 
-    suspend fun getIssues(state: String): Result<List<GithubIssueDto>> {
-        return runCatching { gitHubService.getIssues(state) }
+    suspend fun getIssues(state: String, page: Int): Result<List<GithubIssueDto>> {
+        return runCatching { gitHubService.getIssues(state, page = page) }
     }
 
     suspend fun searchRepositories(keyword: String, page: Int): Result<GithubSearchDto> {

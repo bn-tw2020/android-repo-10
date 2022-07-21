@@ -13,8 +13,8 @@ import kotlinx.coroutines.*
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
-    override suspend fun getIssues(state: String): Result<List<GithubIssue>> {
-        val issues = githubDataSource.getIssues(state).getOrDefault(emptyList())
+    override suspend fun getIssues(state: String, page: Int): Result<List<GithubIssue>> {
+        val issues = githubDataSource.getIssues(state, page = page).getOrThrow()
         return runCatching { issues.map { it.toGithubIssue() } }
     }
 

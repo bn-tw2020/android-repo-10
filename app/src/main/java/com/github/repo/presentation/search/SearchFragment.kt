@@ -128,7 +128,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun handleLoading() {
-        //binding.rvRepository.isVisible = false
         binding.pbLoading.isVisible = true
         binding.layoutBlank.isVisible = false
     }

@@ -1,7 +1,6 @@
 package com.github.repo.presentation.main.notifications
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,6 @@ class NotificationsFragment : Fragment() {
     }
 
     override fun onStop() {
-        Log.d("Tester", "onStop: hi")
         super.onStop()
         viewModel.removeNotification()
     }
