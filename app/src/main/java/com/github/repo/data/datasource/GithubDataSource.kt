@@ -11,7 +11,7 @@ class GithubDataSource(private val gitHubService: GitHubService) {
 
     suspend fun searchRepositories(keyword: String, page: Int): Result<GithubSearchDto> {
         return runCatching {
-            gitHubService.searchRepositories(keyword, page)
+            gitHubService.searchRepositories(keyword, page = page)
         }
     }
 
