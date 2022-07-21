@@ -5,10 +5,10 @@ import com.squareup.moshi.Json
 
 data class GithubSearchDto(
     @Json(name = "total_count") val totalCount: Int,
-    val items: List<GithubRepoDto>
+    val items: List<GithubRepositoryDto>
 )
 
 fun GithubSearchDto.toGithubSearch(): GithubSearch {
-    val githubRepo = items.map { it.toGithubRepo() }
-    return GithubSearch(totalCount, githubRepo)
+    val repositories = items.map { it.toGithubRepository() }
+    return GithubSearch(totalCount, repositories)
 }

@@ -1,6 +1,6 @@
 package com.github.repo.domain.model
 
-data class GithubRepo(
+data class GithubRepository(
     val id: Long,
     val name: String?,
     val fullName: String,

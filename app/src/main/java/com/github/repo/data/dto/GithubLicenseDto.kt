@@ -8,5 +8,5 @@ data class GithubLicenseDto(
     val name: String,
     @Json(name = "node_id") val nodeId: String,
     @Json(name = "spdx_id") val spdxId: String,
-    val url: String
+    val url: String?
 )

@@ -7,7 +7,7 @@
 
         <variable
             name="repository"
-            type="com.github.repo.domain.model.GithubRepo" />
+            type="com.github.repo.domain.model.GithubRepository" />
 
         <import type="android.graphics.Color" />
     </data>

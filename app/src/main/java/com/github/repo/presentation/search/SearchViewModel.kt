@@ -28,7 +28,8 @@ class SearchViewModel(
                 val githubSearch =
                     githubRepository.searchRepositories(query, 1).getOrNull()
                 githubSearch?.let {
-                    UiState.Success(it)
+                    if (it.items.isEmpty()) UiState.Error
+                    else UiState.Success(it)
                 } ?: UiState.Error
             }
         }.asLiveData() as MutableLiveData
