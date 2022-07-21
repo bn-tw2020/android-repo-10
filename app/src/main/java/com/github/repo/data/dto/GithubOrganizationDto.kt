@@ -1,5 +1,5 @@
 package com.github.repo.data.dto
 
-data class GithubOrganizationDto (
+data class GithubOrganizationDto(
     val id: Int
 )

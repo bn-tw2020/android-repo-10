@@ -9,14 +9,14 @@ class GithubDataSource(private val gitHubService: GitHubService) {
         return runCatching { gitHubService.getIssues(state) }
     }
 
-    suspend fun searchRepositories(keyword: String): Result<GithubSearchDto> {
+    suspend fun searchRepositories(keyword: String, page: Int): Result<GithubSearchDto> {
         return runCatching {
-            gitHubService.searchRepositories(keyword)
+            gitHubService.searchRepositories(keyword, page)
         }
     }
 
-    suspend fun getNotifications(): Result<List<GithubNotificationDto>> =
-        runCatching { gitHubService.getNotifications() }
+    suspend fun getNotifications(page: Int): Result<List<GithubNotificationDto>> =
+        runCatching { gitHubService.getNotifications(page = page) }
 
     suspend fun getIssueFromNotification(url: String): Result<GithubIssueDto> =
         runCatching { gitHubService.getIssueFromNotification(url) }

@@ -1,6 +1,7 @@
 package com.github.repo.presentation.main.notifications
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.github.repo.databinding.FragmentNotificationsBinding
 import com.github.repo.domain.model.Notification
+import com.github.repo.presentation.common.RecyclerViewScrollMediator
 import com.github.repo.presentation.common.onError
 import com.github.repo.presentation.common.onLoading
 import com.github.repo.presentation.common.onSuccess
@@ -21,6 +23,7 @@ class NotificationsFragment : Fragment() {
     lateinit var binding: FragmentNotificationsBinding
     lateinit var rvAdapter: NotificationAdapter
     private val viewModel: NotificationsViewModel by viewModel<NotificationsViewModel>()
+    private lateinit var recyclerViewScrollMediator: RecyclerViewScrollMediator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +37,14 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.getNotifications()
+        viewModel.getNotifications(1)
         initView()
+    }
+
+    override fun onStop() {
+        Log.d("Tester", "onStop: hi")
+        super.onStop()
+        viewModel.removeNotification()
     }
 
     private fun initView() {
@@ -46,10 +55,13 @@ class NotificationsFragment : Fragment() {
     private fun recyclerViewAdapterSetting() {
         rvAdapter = NotificationAdapter()
         binding.rvNotification.adapter = rvAdapter
+        recyclerViewScrollMediator = RecyclerViewScrollMediator(binding.rvNotification) { page ->
+            viewModel.getNotifications(page)
+        }
 
         val swipeHelper = SwipeHelperCallback { position ->
             val removeItem = rvAdapter.removeItem(position)
-            viewModel.removeNotification(removeItem.threadId)
+            viewModel.addToRemoveCache(removeItem.threadId)
         }
         ItemTouchHelper(swipeHelper).attachToRecyclerView(binding.rvNotification)
     }
@@ -72,7 +84,6 @@ class NotificationsFragment : Fragment() {
 
     private fun handleLoading() {
         binding.pbLoading.isVisible = true
-        binding.rvNotification.isGone = true
         binding.tvError.isGone = true
     }
 

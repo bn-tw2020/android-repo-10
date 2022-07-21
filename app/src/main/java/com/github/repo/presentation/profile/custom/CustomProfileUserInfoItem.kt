@@ -2,12 +2,8 @@ package com.github.repo.presentation.profile.custom
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.TextView
 import android.widget.Toolbar
-import androidx.core.content.res.getStringOrThrow
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.github.repo.R
 import com.github.repo.databinding.ViewProfileUserInfoItemBinding

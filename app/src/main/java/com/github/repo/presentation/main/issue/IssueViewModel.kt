@@ -23,7 +23,7 @@ class IssueViewModel(
     private val _uiState = MutableLiveData<UiState<List<GithubIssue>>>()
     val uiState: LiveData<UiState<List<GithubIssue>>> = _uiState
 
-    fun getIssues(state: String) = viewModelScope.launch {
+    fun getIssues(state: String, page: Int = 1) = viewModelScope.launch {
         _uiState.value = UiState.Loading
         repository.getIssues(state)
             .onSuccess {

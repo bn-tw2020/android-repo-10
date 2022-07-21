@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.repo.R
 import com.github.repo.databinding.FragmentIssueBinding
 import com.github.repo.domain.model.GithubIssue
+import com.github.repo.presentation.common.RecyclerViewScrollMediator
 import com.github.repo.presentation.common.onError
 import com.github.repo.presentation.common.onLoading
 import com.github.repo.presentation.common.onSuccess
@@ -51,6 +52,13 @@ class IssueFragment : Fragment() {
 
     private fun adapterSetting() {
         binding.rvIssue.adapter = issueAdapter
+        RecyclerViewScrollMediator(binding.rvIssue) { page ->
+            when (binding.spinnerIssueFilter.selectedItemPosition) {
+                OPEN.position -> viewModel.getIssues(OPEN.optionName, page)
+                CLOSED.position -> viewModel.getIssues(CLOSED.optionName, page)
+                ALL.position -> viewModel.getIssues(ALL.optionName, page)
+            }
+        }
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(requireContext(), R.drawable.recylerview_divider)?.let {
             dividerItemDecoration.setDrawable(it)

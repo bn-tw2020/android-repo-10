@@ -1,6 +1,5 @@
 package com.github.repo.config
 
-import android.util.Log
 import com.github.repo.data.datasource.TokenSharedPreference
 import okhttp3.Interceptor
 import okhttp3.Request

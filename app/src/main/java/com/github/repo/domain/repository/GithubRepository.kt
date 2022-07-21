@@ -8,8 +8,8 @@ import com.github.repo.domain.model.Profile
 interface GithubRepository {
 
     suspend fun getIssues(state: String): Result<List<GithubIssue>>
-    suspend fun getNotifications(): Result<List<Notification>>
+    suspend fun getNotifications(page: Int): Result<List<Notification>>
     suspend fun getMyProfile(): Result<Profile>
-    suspend fun searchRepositories(keyword: String): Result<GithubSearch>
-    suspend fun removeNotification(id: String): Result<Unit>
+    suspend fun removeNotification(cache: List<String>)
+    suspend fun searchRepositories(keyword: String, page: Int): Result<GithubSearch>
 }

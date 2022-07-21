@@ -22,10 +22,15 @@ interface GitHubService {
     ): List<GithubIssueDto>
 
     @GET("search/repositories")
-    suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
+    suspend fun searchRepositories(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = 20
+    ): GithubSearchDto
 
     @GET("/notifications")
     suspend fun getNotifications(
+        @Query("page") page: Int,
         @Query("per_page") perPage: Int = 20
     ): List<GithubNotificationDto>
 
