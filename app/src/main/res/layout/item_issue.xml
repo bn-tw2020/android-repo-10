@@ -30,9 +30,11 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/SubTitle2.grey"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{issue.repository.fullName}"
             app:layout_constraintBottom_toBottomOf="@id/iv_status"
             app:layout_constraintStart_toEndOf="@id/iv_status"

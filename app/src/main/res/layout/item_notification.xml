@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text='@{"#"+notification.threadId}'
+                    android:text='@{"#"+notification.issueNumber}'
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/cardView"
                     app:layout_constraintStart_toEndOf="@+id/tv_repo_name"
@@ -118,7 +118,6 @@
                     style="@style/SubTitle2.grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{notification.updateTime}"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/cardView"
                     app:layout_constraintEnd_toEndOf="parent"
