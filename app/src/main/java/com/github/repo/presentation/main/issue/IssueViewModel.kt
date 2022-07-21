@@ -52,30 +52,6 @@ class IssueViewModel(
             }
             .onFailure { _uiState.value = UiState.Error }
     }
-    /*
-    fun getNextPage(page: Int) = viewModelScope.launch {
-    Log.d("success:nextPage", page.toString())
-    _uiState.value?.onSuccess { it ->
-        prevList = it
-    }
-    _uiState.value = UiState.Loading
-    githubRepository.searchRepositories(searchKeyword.value, page)
-        .onSuccess { data ->
-            Log.d("success:nextPage", data.toString())
-            _uiState.value = UiState.Success(prevList)
-            _uiState.value?.onSuccess { it ->
-                Log.d("success:nextPage", it.toString())
-                val list = it.items.toMutableList()
-                list.addAll(data.items)
-                _uiState.value = UiState.Success(it.copy(items = list))
-            }
-        }
-        .onFailure {
-            Log.d("Tester", it.toString())
-        }
-}
-
-     */
 
     fun setSelectedPosition(position: Int) {
         _selectedPosition.value = position
