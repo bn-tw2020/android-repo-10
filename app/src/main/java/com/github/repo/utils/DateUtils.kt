@@ -5,6 +5,7 @@ import java.util.*
 
 object DateUtils {
     private val mFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+        .apply { timeZone = TimeZone.getTimeZone("UTC") }
     private val currentDate: Date by lazy { Date(System.currentTimeMillis()) }
 
     fun getUpdateDate(date: String): String {
