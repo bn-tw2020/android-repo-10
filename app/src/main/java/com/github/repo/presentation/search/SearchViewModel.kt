@@ -3,6 +3,7 @@ package com.github.repo.presentation.search
 import androidx.lifecycle.*
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.repository.GithubRepository
+import com.github.repo.presentation.common.Constant.BLANK
 import com.github.repo.presentation.common.UiState
 import com.github.repo.presentation.common.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,9 +55,5 @@ class SearchViewModel(
             .onFailure {
                 _uiState.value = UiState.Error
             }
-    }
-
-    companion object {
-        const val BLANK = ""
     }
 }

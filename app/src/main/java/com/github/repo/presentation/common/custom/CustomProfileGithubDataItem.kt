@@ -1,4 +1,4 @@
-package com.github.repo.presentation.profile.custom
+package com.github.repo.presentation.common.custom
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,6 +7,7 @@ import android.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.github.repo.R
 import com.github.repo.databinding.ViewProfileGithubDataItemBinding
+import com.github.repo.presentation.common.Constant.BLANK
 
 class CustomProfileGithubDataItem(
     context: Context,
@@ -21,7 +22,7 @@ class CustomProfileGithubDataItem(
             true
         )
 
-    private var title = ""
+    private var title = BLANK
     private var icon = R.drawable.ic_check
     var count = 0
         set(value) {
