@@ -2,6 +2,7 @@ package com.github.repo.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 object DateUtils {
     private val mFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
@@ -12,7 +13,7 @@ object DateUtils {
         val updateDate: Date = mFormat.parse(date)
         updateDate.compareTo(currentDate)
 
-        val diff: Long = currentDate.time - updateDate.time
+        val diff: Long = abs(currentDate.time - updateDate.time)
         val seconds = diff / 1000
         val minutes = seconds / 60
         val hours = minutes / 60
