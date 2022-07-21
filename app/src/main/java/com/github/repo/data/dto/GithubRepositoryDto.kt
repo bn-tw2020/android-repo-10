@@ -1,6 +1,6 @@
 package com.github.repo.data.dto
 
-import com.github.repo.domain.model.GithubRepo
+import com.github.repo.domain.model.GithubRepository
 import com.github.repo.domain.model.colors
 import com.squareup.moshi.Json
 
@@ -93,9 +93,9 @@ data class GithubRepositoryDto(
     @Json(name = "watchers_count") val watchersCount: Int?
 )
 
-fun GithubRepositoryDto.toGithubRepo(): GithubRepo {
+fun GithubRepositoryDto.toGithubRepository(): GithubRepository {
     val languageColor = language?.let { colors[it] }
-    return GithubRepo(
+    return GithubRepository(
         id.toLong(),
         name,
         fullName,

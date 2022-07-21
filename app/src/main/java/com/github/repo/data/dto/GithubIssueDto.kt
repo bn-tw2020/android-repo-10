@@ -38,4 +38,4 @@ data class GithubIssueDto(
 )
 
 fun GithubIssueDto.toGithubIssue(): GithubIssue =
-    GithubIssue(number, state, createdAt, repository?.toGithubRepo(), title)
+    GithubIssue(number, state, createdAt, repository?.toGithubRepository(), title)
