@@ -19,29 +19,27 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
     }
 
     override suspend fun getNotifications(page: Int): Result<List<Notification>> {
-        val updatedNotification = mutableListOf<Notification>()
         val notificationList = githubDataSource.getNotifications(page).getOrThrow()
-        return withContext(CoroutineScope(Dispatchers.Main.immediate).coroutineContext) {
-            notificationList.forEach { notification ->
-                launch {
-                    val issue =
-                        githubDataSource.getIssueFromNotification(notification.subject.url)
-                            .getOrThrow()
-                    updatedNotification.add(
-                        Notification(
-                            thumbnailUrl = notification.repository.owner.avatarUrl,
-                            repoName = notification.repository.fullName,
-                            notificationTitle = notification.subject.title,
-                            issueNumber = issue.number,
-                            updateTime = notification.updatedAt,
-                            commentCount = issue.comments,
-                            threadId = notification.id
-                        )
-                    )
+
+        val result = withContext(Dispatchers.IO) {
+            val issueList = notificationList.map {
+                async {
+                    githubDataSource.getIssueFromNotification(it.subject.url).getOrThrow()
                 }
+            }.awaitAll()
+            notificationList.zip(issueList) { notification, issue ->
+                Notification(
+                    thumbnailUrl = notification.repository.owner.avatarUrl,
+                    repoName = notification.repository.fullName,
+                    notificationTitle = notification.subject.title,
+                    issueNumber = issue.number,
+                    updateTime = notification.updatedAt,
+                    commentCount = issue.comments,
+                    threadId = notification.id
+                )
             }
-            runCatching { updatedNotification }
         }
+        return runCatching { result.sortedByDescending { it.updateTime } }
     }
 
     override suspend fun removeNotification(cache: List<String>) {
