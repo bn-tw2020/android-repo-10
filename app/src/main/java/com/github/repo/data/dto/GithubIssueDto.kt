@@ -8,7 +8,7 @@ data class GithubIssueDto(
     @Json(name = "assignee") val assignee: GithubAssigneeDto?,
     @Json(name = "assignees") val assignees: List<GithubAssigneeDto>,
     @Json(name = "author_association") val authorAssociation: String,
-    @Json(name = "body") val body: String,
+    @Json(name = "body") val body: String?,
     @Json(name = "closed_at") val closedAt: String?,
     @Json(name = "closed_by") val closedBy: Any?,
     @Json(name = "comments") val comments: Int,

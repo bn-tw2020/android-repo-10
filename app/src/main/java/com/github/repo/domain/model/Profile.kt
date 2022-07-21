@@ -1,6 +1,6 @@
 package com.github.repo.domain.model
 
-data class Profile (
+data class Profile(
     val profileImgUrl: String,
     val userName: String,
     val id: String,

@@ -1,6 +1,5 @@
 package com.github.repo.presentation.main.notifications
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,17 +15,20 @@ class NotificationsViewModel(
 
     private val _uiState = MutableLiveData<UiState<List<Notification>>>()
     val uiState: LiveData<UiState<List<Notification>>> = _uiState
+    private val cache = mutableListOf<String>()
 
-    fun getNotifications() = viewModelScope.launch {
+    fun getNotifications(page: Int) = viewModelScope.launch {
         _uiState.value = UiState.Loading
-        githubRepository.getNotifications()
+        githubRepository.getNotifications(page)
             .onSuccess { _uiState.value = UiState.Success(it) }
             .onFailure { _uiState.value = UiState.Error }
     }
 
-    fun removeNotification(id: String) = viewModelScope.launch {
-        githubRepository.removeNotification(id)
-            .onSuccess { Log.d("Tester", "Success") }
-            .onFailure { it.printStackTrace() }
+    fun addToRemoveCache(id: String) {
+        cache.add(id)
+    }
+
+    fun removeNotification() = viewModelScope.launch {
+        githubRepository.removeNotification(cache)
     }
 }

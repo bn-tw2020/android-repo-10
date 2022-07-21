@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.repo.R
 import com.github.repo.databinding.FragmentIssueBinding
 import com.github.repo.domain.model.GithubIssue
+import com.github.repo.presentation.common.RecyclerViewScrollMediator
 import com.github.repo.presentation.common.onError
 import com.github.repo.presentation.common.onLoading
 import com.github.repo.presentation.common.onSuccess
@@ -27,6 +28,7 @@ class IssueFragment : Fragment() {
     private val viewModel: IssueViewModel by viewModel()
     private lateinit var spinnerAdapter: SpinnerAdapter
     private val issueAdapter = IssueAdapter()
+    private lateinit var recyclerViewScrollMediator: RecyclerViewScrollMediator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +53,13 @@ class IssueFragment : Fragment() {
 
     private fun adapterSetting() {
         binding.rvIssue.adapter = issueAdapter
+        recyclerViewScrollMediator = RecyclerViewScrollMediator(binding.rvIssue) { page ->
+            when (binding.spinnerIssueFilter.selectedItemPosition) {
+                OPEN.position -> viewModel.getIssues(OPEN.optionName, page)
+                CLOSED.position -> viewModel.getIssues(CLOSED.optionName, page)
+                ALL.position -> viewModel.getIssues(ALL.optionName, page)
+            }
+        }
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(requireContext(), R.drawable.recylerview_divider)?.let {
             dividerItemDecoration.setDrawable(it)
@@ -100,7 +109,6 @@ class IssueFragment : Fragment() {
 
     private fun handleLoading() {
         binding.pbLoading.isVisible = true
-        binding.rvIssue.isGone = true
         binding.tvError.isGone = true
     }
 
@@ -132,6 +140,7 @@ class IssueFragment : Fragment() {
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
                     viewModel.setSelectedPosition(position)
+                    recyclerViewScrollMediator.initialize()
                     when (position) {
                         OPEN.position -> viewModel.getIssues(OPEN.optionName)
                         CLOSED.position -> viewModel.getIssues(CLOSED.optionName)

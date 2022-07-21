@@ -1,11 +1,10 @@
 package com.github.repo.data.repository
 
-import android.util.Log
 import com.github.repo.data.datasource.GithubDataSource
 import com.github.repo.data.dto.toGithubIssue
 import com.github.repo.data.dto.toGithubSearch
-import com.github.repo.domain.model.GithubIssue
 import com.github.repo.data.dto.toProfile
+import com.github.repo.domain.model.GithubIssue
 import com.github.repo.domain.model.GithubSearch
 import com.github.repo.domain.model.Notification
 import com.github.repo.domain.model.Profile
@@ -14,14 +13,14 @@ import kotlinx.coroutines.*
 
 class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : GithubRepository {
 
-    override suspend fun getIssues(state: String): Result<List<GithubIssue>> {
-        val issues = githubDataSource.getIssues(state).getOrDefault(emptyList())
+    override suspend fun getIssues(state: String, page: Int): Result<List<GithubIssue>> {
+        val issues = githubDataSource.getIssues(state, page = page).getOrThrow()
         return runCatching { issues.map { it.toGithubIssue() } }
     }
 
-    override suspend fun getNotifications(): Result<List<Notification>> {
+    override suspend fun getNotifications(page: Int): Result<List<Notification>> {
         val updatedNotification = mutableListOf<Notification>()
-        val notificationList = githubDataSource.getNotifications().getOrThrow()
+        val notificationList = githubDataSource.getNotifications(page).getOrThrow()
         return withContext(CoroutineScope(Dispatchers.Main.immediate).coroutineContext) {
             notificationList.forEach { notification ->
                 launch {
@@ -45,8 +44,13 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
         }
     }
 
-    override suspend fun removeNotification(id: String): Result<Unit> =
-        githubDataSource.removeNotification(id)
+    override suspend fun removeNotification(cache: List<String>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            cache.forEach {
+                launch { githubDataSource.removeNotification(it) }
+            }
+        }
+    }
 
     override suspend fun getMyProfile(): Result<Profile> {
         val data = githubDataSource.getMyProfile().getOrThrow()
@@ -58,11 +62,16 @@ class GithubRepositoryImpl(private val githubDataSource: GithubDataSource) : Git
         val starredCount = starJob.await()
         val organizationCount = organJob.await()
 
-        return runCatching { data.toProfile(organCount = organizationCount, starCount = starredCount) }
+        return runCatching {
+            data.toProfile(
+                organCount = organizationCount,
+                starCount = starredCount
+            )
+        }
     }
 
-    override suspend fun searchRepositories(keyword: String): Result<GithubSearch> {
-        return githubDataSource.searchRepositories(keyword).map {
+    override suspend fun searchRepositories(keyword: String, page: Int): Result<GithubSearch> {
+        return githubDataSource.searchRepositories(keyword, page).map {
             it.toGithubSearch()
         }
     }

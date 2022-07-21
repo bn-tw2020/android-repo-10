@@ -1,13 +1,13 @@
 package com.github.repo.data.network
 
 import com.github.repo.data.dto.*
+import com.github.repo.presentation.common.RecyclerViewScrollMediator
 import retrofit2.http.*
 
 interface GitHubService {
 
     @FormUrlEncoded
     @POST("login/oauth/access_token")
-    @Headers("Accept: application/json")
     suspend fun getAccessToken(
         @Field("client_id") clientId: String,
         @Field("client_secret") clientSecret: String,
@@ -17,16 +17,21 @@ interface GitHubService {
     @GET("user/issues")
     suspend fun getIssues(
         @Query("state") state: String,
-        @Query("per_page") perPage: Int = 20,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
         @Query("page") page: Int = 1,
     ): List<GithubIssueDto>
 
     @GET("search/repositories")
-    suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
+    suspend fun searchRepositories(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
+    ): GithubSearchDto
 
     @GET("/notifications")
     suspend fun getNotifications(
-        @Query("per_page") perPage: Int = 20
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
     ): List<GithubNotificationDto>
 
     @GET
