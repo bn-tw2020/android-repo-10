@@ -27,7 +27,7 @@ class IssueAdapter :
 
         fun bind(issue: GithubIssue) {
             binding.issue = issue
-            binding.tvUpdateTime.text = DateUtils.getUpdateDate(issue.createdAt)
+            binding.tvUpdateTime.text = DateUtils.calculateTime(issue.createdAt)
         }
 
     }

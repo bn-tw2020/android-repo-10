@@ -5,25 +5,42 @@ import java.util.*
 import kotlin.math.abs
 
 object DateUtils {
-    private val mFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
-        .apply { timeZone = TimeZone.getTimeZone("UTC") }
-    private val currentDate: Date by lazy { Date(System.currentTimeMillis()) }
+    fun calculateTime(stringDate: String): String? {
+        val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+        val date = format.parse(stringDate) ?: return ""
+        val currentTime = System.currentTimeMillis()
+        val registerTime = date.time
+        var differenceTime = (currentTime - registerTime) / 1000
 
-    fun getUpdateDate(date: String): String {
-        val updateDate: Date = mFormat.parse(date)
-        updateDate.compareTo(currentDate)
+        if (differenceTime < TimeValue.SEC.value) {
+            return "${differenceTime}${TimeValue.SECOND_AGE}"
+        } else {
+            for (timeValue in TimeValue.values()) {
+                differenceTime /= timeValue.value
+                if (differenceTime < timeValue.maximum) {
+                    return "${differenceTime}${timeValue.message}"
+                }
+            }
+        }
+        return null
+    }
+}
 
-        val diff: Long = abs(currentDate.time - updateDate.time)
-        val seconds = diff / 1000
-        val minutes = seconds / 60
-        val hours = minutes / 60
-        val days = hours / 24
-        val years = days / 365
+enum class TimeValue(val value: Int, val maximum: Int, val message: String) {
+    SEC(60, 60, TimeValue.MIN_AGO),
+    MIN(60, 24, TimeValue.TIME_AGE),
+    HOUR(24, 30, TimeValue.DAY_AGE),
+    DAY(30, 12, TimeValue.MONTH_AGE),
+    MONTH(12, Int.MAX_VALUE, TimeValue.YEAR_AGE);
 
-        return if (years > 0) "${years}년 전"
-        else if (days > 0) "${days}일 전"
-        else if (hours > 0) "${hours}시간 전"
-        else if (minutes > 0) "${minutes}분 전"
-        else "${seconds}초 전"
+    companion object {
+        const val SECOND_AGE = "초 전"
+        const val MIN_AGO = "분 전"
+        const val TIME_AGE = "시간 전"
+        const val DAY_AGE = "일 전"
+        const val MONTH_AGE = "달 전"
+        const val YEAR_AGE = "년 전"
     }
 }
