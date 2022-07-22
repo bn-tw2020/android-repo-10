@@ -42,7 +42,7 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: Notification) {
             binding.notification = notification
-            binding.tvUpdateTime.text = DateUtils.getUpdateDate(notification.updateTime)
+            binding.tvUpdateTime.text = DateUtils.calculateTime(notification.updateTime)
         }
     }
 }
