@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("kapt")
 }
 
@@ -64,4 +66,7 @@ dependencies {
     implementation(Lib.AndroidX.VIEWMDOEL_KTX)
     implementation(Lib.AndroidX.BROWSER)
     implementation(Lib.AndroidX.LIVEDATA)
+    implementation(platform(Lib.Firebase.BOM))
+    implementation(Lib.Firebase.ANALYTICS)
+    implementation(Lib.Firebase.CRASHLYTICS)
 }

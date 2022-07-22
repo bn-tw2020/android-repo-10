@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "675271650934",
+    "project_id": "tech-camp-repository",
+    "storage_bucket": "tech-camp-repository.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675271650934:android:65587e0c2036bdaeadb957",
+        "android_client_info": {
+          "package_name": "com.github.repo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675271650934-vd46m2efi8o46a4vn9f12v3ud9a36j1m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.repo",
+            "certificate_hash": "d8fcc489078d97d9bf591ed5e21de1a9a9bee5f1"
+          }
+        },
+        {
+          "client_id": "675271650934-l24lh21rlee6igfaoi2vljmpt1t70cl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUh9k0D-OWUvmRrawKOjbg40NOG1QH7-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675271650934-l24lh21rlee6igfaoi2vljmpt1t70cl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

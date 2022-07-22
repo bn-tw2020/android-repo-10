@@ -15,6 +15,9 @@ object Version {
     const val BROWSER = "1.4.0"
     const val VIEWMODEL = "2.2.0"
     const val LIVEDATA = "2.4.1"
+    const val BOM = "30.2.0"
+    const val GOOGLE_SERVICE = "4.3.13"
+    const val CRASHLYTICS = "2.9.1"
 }
 
 object Lib {
@@ -71,5 +74,11 @@ object Lib {
         const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.COROUTINE}"
         const val ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.COROUTINE}"
         const val TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.COROUTINE}"
+    }
+
+    object Firebase {
+        const val ANALYTICS = "com.google.firebase:firebase-analytics"
+        const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
+        const val BOM = "com.google.firebase:firebase-bom:${Version.BOM}"
     }
 }
