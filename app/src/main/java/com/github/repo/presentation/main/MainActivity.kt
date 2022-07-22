@@ -12,30 +12,51 @@ import androidx.fragment.app.Fragment
 import com.github.repo.R
 import com.github.repo.databinding.ActivityMainBinding
 import com.github.repo.presentation.common.Clickable
+import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.main.issue.IssueFragment
 import com.github.repo.presentation.main.notifications.NotificationsFragment
 import com.github.repo.presentation.profile.ProfileFragment
+import com.github.repo.presentation.profile.ProfileViewModel
 import com.github.repo.presentation.search.SearchFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), Clickable {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: ProfileViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initView()
+        observeData()
+        onSaveFragment()
     }
 
     private fun initView() {
         appBarSetting()
         toggleButtonSetting()
-        changeFragment(IssueFragment(), getString(R.string.fragment_issue), false)
+    }
+
+    private fun observeData() {
+        viewModel.uiState.observe(this) { state ->
+            with(state) {
+                onSuccess { handleSuccess(it.profileImgUrl) }
+            }
+        }
+    }
+
+    private fun handleSuccess(imageUrl: String) {
+        binding.profileImgUrl = imageUrl
     }
 
     private fun toggleButtonSetting() {
-        binding.rgFragmentTab.setOnCheckedChangeListener { _, id ->
+        binding.rgFragmentTab.setOnCheckedChangeListener { a, id ->
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
+            if (currentFragment?.tag == getString(R.string.fragment_search)
+                || currentFragment?.tag == getString(R.string.fragment_profile)
+            ) return@setOnCheckedChangeListener
             when (id) {
                 R.id.btn_issue -> changeFragment(
                     IssueFragment(),
@@ -99,6 +120,14 @@ class MainActivity : AppCompatActivity(), Clickable {
                 showAppBar()
             }
             else -> super.onBackPressed()
+        }
+    }
+
+    private fun onSaveFragment() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fcv_main)
+        when (currentFragment?.tag) {
+            getString(R.string.fragment_profile) -> hideAppBar()
+            getString(R.string.fragment_search) -> hideAppBar()
         }
     }
 

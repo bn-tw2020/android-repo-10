@@ -7,7 +7,7 @@
 
         <variable
             name="repository"
-            type="com.github.repo.domain.model.GithubRepo" />
+            type="com.github.repo.domain.model.GithubRepository" />
 
         <import type="android.graphics.Color" />
     </data>
@@ -50,7 +50,7 @@
             tools:text="KotlinUdemy" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/tv_bio_description"
             style="@style/SubTitle2.white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_marginStart="8dp"
             android:orientation="vertical"
             android:paddingBottom="12dp"
-            app:constraint_referenced_ids="tv_title, tv_name, tv_description"
+            app:constraint_referenced_ids="tv_title, tv_name, tv_bio_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
             app:layout_constraintTop_toTopOf="@id/iv_profile" />

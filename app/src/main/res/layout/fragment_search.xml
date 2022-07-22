@@ -18,7 +18,7 @@
         tools:context=".presentation.search.SearchFragment"
         tools:ignore="MissingConstraints">
 
-        <com.github.repo.presentation.common.CustomToolbar
+        <com.github.repo.presentation.common.custom.CustomToolbar
             android:id="@+id/tb_search"
             android:layout_width="0dp"
             android:layout_height="72dp"

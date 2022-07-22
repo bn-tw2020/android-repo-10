@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.repo.databinding.ItemRepositoryBinding
-import com.github.repo.domain.model.GithubRepo
+import com.github.repo.domain.model.GithubRepository
 
 class RepositoryAdapter :
-    ListAdapter<GithubRepo, RepositoryAdapter.RepositoryViewHolder>(DiffUtil) {
+    ListAdapter<GithubRepository, RepositoryAdapter.RepositoryViewHolder>(DiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val binding =
@@ -24,19 +24,19 @@ class RepositoryAdapter :
     class RepositoryViewHolder(private val binding: ItemRepositoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(repository: GithubRepo) {
+        fun bind(repository: GithubRepository) {
             binding.repository = repository
         }
 
     }
 
     companion object {
-        val DiffUtil = object : DiffUtil.ItemCallback<GithubRepo>() {
-            override fun areItemsTheSame(oldItem: GithubRepo, newItem: GithubRepo): Boolean {
+        val DiffUtil = object : DiffUtil.ItemCallback<GithubRepository>() {
+            override fun areItemsTheSame(oldItem: GithubRepository, newItem: GithubRepository): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: GithubRepo, newItem: GithubRepo): Boolean {
+            override fun areContentsTheSame(oldItem: GithubRepository, newItem: GithubRepository): Boolean {
                 return oldItem == newItem
             }
         }

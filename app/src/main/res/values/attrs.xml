@@ -6,4 +6,21 @@
         <attr name="navigationIcon" format="reference" />
         <attr name="toolbarTitleColor" format="reference|integer" />
     </declare-styleable>
+
+    <declare-styleable name="CustomProfileUserInfoItem">
+        <attr name="contentText" format="string" />
+        <attr name="contentIcon" format="reference" />
+        <attr name="itemType">
+            <flag name="mail" value="0x00" />
+            <flag name="link" value="0x01" />
+            <flag name="text" value="0x02" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomProfileGithubDataItem">
+        <attr name="name" format="string" />
+        <attr name="icon" format="reference" />
+        <attr name="count" format="integer"/>
+    </declare-styleable>
+
 </resources>

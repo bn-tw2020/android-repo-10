@@ -1,4 +1,4 @@
-package com.github.repo.presentation.common
+package com.github.repo.presentation.common.custom
 
 import android.content.Context
 import android.util.AttributeSet

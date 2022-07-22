@@ -1,41 +1,67 @@
 package com.github.repo.data.network
 
-import com.github.repo.data.dto.GithubIssueDto
-import com.github.repo.data.dto.GithubSearchDto
-import com.github.repo.data.dto.GithubNotificationDto
-import com.github.repo.data.dto.GithubTokenDto
+import com.github.repo.data.dto.*
+import com.github.repo.presentation.common.Constant.API_ACCESS_TOKEN
+import com.github.repo.presentation.common.Constant.API_SEARCH_REPOSITORY
+import com.github.repo.presentation.common.Constant.API_USER
+import com.github.repo.presentation.common.Constant.API_USER_ISSUES
+import com.github.repo.presentation.common.Constant.API_USER_NOTIFICATIONS
+import com.github.repo.presentation.common.Constant.API_USER_ORGANIZATION
+import com.github.repo.presentation.common.Constant.API_USER_REMOVE_NOTIFICATION
+import com.github.repo.presentation.common.Constant.API_USER_STAR
+import com.github.repo.presentation.common.RecyclerViewScrollMediator
 import retrofit2.http.*
 
 interface GitHubService {
 
     @FormUrlEncoded
-    @POST("login/oauth/access_token")
-    @Headers("Accept: application/json")
+    @POST(API_ACCESS_TOKEN)
     suspend fun getAccessToken(
         @Field("client_id") clientId: String,
         @Field("client_secret") clientSecret: String,
         @Field("code") code: String
     ): GithubTokenDto
 
+    @GET(API_USER_ISSUES)
+    suspend fun getIssues(
+        @Query("state") state: String,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
+        @Query("page") page: Int = 1,
+    ): List<GithubIssueDto>
 
-    @GET("search/repositories")
-    suspend fun searchRepositories(@Query("q") query: String): GithubSearchDto
+    @GET(API_SEARCH_REPOSITORY)
+    suspend fun searchRepositories(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
+    ): GithubSearchDto
 
-    @GET("/notifications")
+    @GET(API_USER_NOTIFICATIONS)
     suspend fun getNotifications(
-        @Header("Authorization") token: String,
-        @Header("Accept") accept: String = "Accept: application/vnd.github+json"
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int = RecyclerViewScrollMediator.perPage,
     ): List<GithubNotificationDto>
 
     @GET
     suspend fun getIssueFromNotification(
-        @Header("Authorization") token: String,
         @Url url: String
     ): GithubIssueDto
 
-    @PATCH("/notifications/threads/{thread_id}")
+    @PATCH(API_USER_REMOVE_NOTIFICATION)
     suspend fun removeNotification(
-        @Header("Authorization") token: String,
         @Path("thread_id") id: String
     )
+
+    @GET(API_USER)
+    suspend fun getMyProfile(): GithubProfileDto
+
+    @GET(API_USER_STAR)
+    suspend fun getStarred(
+        @Path("user") userName: String
+    ): List<GithubStarredDto>
+
+    @GET(API_USER_ORGANIZATION)
+    suspend fun getOrganization(
+        @Path("login") login: String
+    ): List<GithubOrganizationDto>
 }

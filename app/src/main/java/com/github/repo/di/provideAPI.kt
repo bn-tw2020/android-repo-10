@@ -2,6 +2,8 @@ package com.github.repo.di
 
 import com.github.repo.config.GITHUB_API
 import com.github.repo.config.GITHUB_OAUTH
+import com.github.repo.config.XAccessTokenInterceptor
+import com.github.repo.data.datasource.TokenSharedPreference
 import com.github.repo.data.network.GitHubService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -17,10 +19,16 @@ fun provideMoshi(): Moshi = Moshi.Builder()
 fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory =
     MoshiConverterFactory.create(moshi)
 
-fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder().apply {
+fun provideOkHttp(
+    interceptor: XAccessTokenInterceptor
+): OkHttpClient = OkHttpClient.Builder().apply {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
     httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-}.build()
+}.addNetworkInterceptor(interceptor).build()
+
+fun provideXAccessTokenInterceptor(
+    tokenSharedPreference: TokenSharedPreference
+): XAccessTokenInterceptor = XAccessTokenInterceptor(tokenSharedPreference)
 
 fun provideRetrofit(
     moshiConverterFactory: MoshiConverterFactory,

@@ -16,17 +16,18 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.repo.R
 import com.github.repo.databinding.FragmentSearchBinding
-import com.github.repo.presentation.common.Clickable
+import com.github.repo.domain.model.GithubSearch
+import com.github.repo.presentation.common.*
 import com.github.repo.presentation.search.adapter.RepositoryAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var listener: Clickable
+    private lateinit var rvScrollManager: RecyclerViewScrollMediator
     private val viewModel by sharedViewModel<SearchViewModel>()
     private val imm: InputMethodManager by lazy { activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager }
     private val adapter = RepositoryAdapter()
@@ -88,6 +89,9 @@ class SearchFragment : Fragment() {
 
     private fun adapterSetting() {
         binding.rvRepository.adapter = adapter
+        rvScrollManager = RecyclerViewScrollMediator(binding.rvRepository) { page ->
+            viewModel.getNextPage(page)
+        }
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(requireContext(), R.drawable.recylerview_divider)?.let {
             dividerItemDecoration.setDrawable(it)
@@ -99,10 +103,10 @@ class SearchFragment : Fragment() {
     @ExperimentalCoroutinesApi
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Error -> handleError()
-                is UiState.Loading -> handleLoading()
-                is UiState.GetRepositories -> handleSuccess(state)
+            with(state) {
+                onSuccess { handleSuccess(it) }
+                onError { handleError() }
+                onLoading { handleLoading() }
             }
         }
 
@@ -116,15 +120,14 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess(state: UiState.GetRepositories) {
+    private fun handleSuccess(result: GithubSearch) {
         binding.rvRepository.isVisible = true
         binding.pbLoading.isVisible = false
         binding.layoutBlank.isVisible = false
-        adapter.submitList(state.repositories.items)
+        adapter.submitList(result.items)
     }
 
     private fun handleLoading() {
-        binding.rvRepository.isVisible = false
         binding.pbLoading.isVisible = true
         binding.layoutBlank.isVisible = false
     }
@@ -133,6 +136,7 @@ class SearchFragment : Fragment() {
         binding.rvRepository.isVisible = false
         binding.pbLoading.isVisible = false
         binding.layoutBlank.isVisible = true
+        rvScrollManager.initialize()
     }
 
     private fun hideKeyboard() {

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="profileImgUrl"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,21 +28,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/main_appbar_title">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btn_profile"
+                setImage="@{profileImgUrl}"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="end"
-                app:cardBackgroundColor="@android:color/transparent"
-                app:cardCornerRadius="300dp">
-
-                <ImageButton
-                    android:id="@+id/btn_profile"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/label_profile_icon"
-                    android:src="@drawable/ic_user" />
-            </androidx.cardview.widget.CardView>
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/label_profile_icon"
+                app:shapeAppearanceOverlay="@style/circleImageView" />
 
             <ImageButton
                 android:id="@+id/btn_search"
@@ -56,9 +53,9 @@
             android:id="@+id/rg_fragment_tab"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:orientation="horizontal"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -70,11 +67,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:button="@null"
                 android:background="@drawable/btn_background"
+                android:button="@null"
                 android:checked="true"
-                android:textAlignment="center"
-                android:text="@string/fragment_issue" />
+                android:text="@string/fragment_issue"
+                android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/btn_notifications"
@@ -83,14 +80,15 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:button="@null"
                 android:background="@drawable/btn_background"
-                android:textAlignment="center"
-                android:text="@string/fragment_notifications" />
+                android:button="@null"
+                android:text="@string/fragment_notifications"
+                android:textAlignment="center" />
         </RadioGroup>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_main"
+            android:name="com.github.repo.presentation.main.issue.IssueFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="Hello World!"
