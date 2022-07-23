@@ -7,7 +7,7 @@ import kotlin.math.abs
 object DateUtils {
     fun calculateTime(stringDate: String): String? {
         val format: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").apply {
-            timeZone = TimeZone.getTimeZone("UTC")
+            timeZone = TimeZone.getTimeZone("Aisa/Seoul")
         }
         val date = format.parse(stringDate) ?: return ""
         val currentTime = System.currentTimeMillis()
