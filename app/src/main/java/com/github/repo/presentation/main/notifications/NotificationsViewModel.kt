@@ -1,6 +1,5 @@
 package com.github.repo.presentation.main.notifications
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,7 +34,6 @@ class NotificationsViewModel(
                 _uiState.value?.onSuccess { it ->
                     val list = it.toMutableList()
                     list.addAll(data)
-                    Log.d("Tester", "$list")
                     _uiState.value = UiState.Success(list)
                 }
             }
