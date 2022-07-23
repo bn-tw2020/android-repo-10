@@ -15,13 +15,13 @@ import com.github.repo.presentation.common.onError
 import com.github.repo.presentation.common.onLoading
 import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.main.notifications.adapter.NotificationAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class NotificationsFragment : Fragment() {
 
     lateinit var binding: FragmentNotificationsBinding
     lateinit var rvAdapter: NotificationAdapter
-    private val viewModel: NotificationsViewModel by viewModel<NotificationsViewModel>()
+    private val viewModel: NotificationsViewModel by sharedViewModel()
     private lateinit var recyclerViewScrollMediator: RecyclerViewScrollMediator
 
     override fun onCreateView(
@@ -36,7 +36,6 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.getNotifications(1)
         initView()
     }
 

@@ -9,10 +9,10 @@ import com.github.repo.utils.DateUtils
 
 class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
-    private val notificationDtoList = ArrayList<Notification>()
+    private var notificationDtoList = mutableListOf<Notification>()
 
     fun addItemList(list: List<Notification>) {
-        notificationDtoList.addAll(list)
+        notificationDtoList = list.toMutableList()
         notifyDataSetChanged()
     }
 
