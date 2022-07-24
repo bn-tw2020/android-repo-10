@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.github.repo.data.datasource.TokenSharedPreference
 import com.github.repo.domain.repository.LoginRepository
 import com.github.repo.presentation.common.UiState
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -17,7 +20,11 @@ class LoginViewModel(
     private val _uiState = MutableLiveData<UiState<String>>()
     val uiState: LiveData<UiState<String>> = _uiState
 
-    fun getAccessToken(code: String) = viewModelScope.launch {
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        _uiState.value = UiState.Error
+    }
+
+    fun getAccessToken(code: String) = viewModelScope.launch(coroutineExceptionHandler) {
         _uiState.value = UiState.Loading
         loginRepository.getAccessToken(code)
             .onSuccess {

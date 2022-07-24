@@ -9,6 +9,7 @@ import com.github.repo.domain.repository.GithubRepository
 import com.github.repo.presentation.common.UiState
 import com.github.repo.presentation.common.onSuccess
 import com.github.repo.presentation.main.issue.OptionType.OPEN
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class IssueViewModel(
@@ -27,7 +28,11 @@ class IssueViewModel(
     private var prevList: List<GithubIssue> = emptyList()
     private var prevState: String = OptionType.OPEN.optionName
 
-    fun getIssues(state: String, page: Int = 1) = viewModelScope.launch {
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        _uiState.value = UiState.Error
+    }
+
+    fun getIssues(state: String, page: Int = 1) = viewModelScope.launch(coroutineExceptionHandler) {
         if (prevState != state) {
             prevList = emptyList()
             prevState = state

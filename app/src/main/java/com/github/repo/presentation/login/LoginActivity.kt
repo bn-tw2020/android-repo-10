@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleError() {
         binding.pbLoading.isVisible = false
-        binding.btnLogin.isEnabled = false
+        binding.btnLogin.isEnabled = true
         Toast.makeText(this, getString(R.string.login_error_message), Toast.LENGTH_SHORT).show()
     }
 

@@ -26,6 +26,7 @@ class IssueAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(issue: GithubIssue) {
+            itemView
             binding.issue = issue
             binding.tvUpdateTime.text = DateUtils.calculateTime(issue.createdAt)
         }

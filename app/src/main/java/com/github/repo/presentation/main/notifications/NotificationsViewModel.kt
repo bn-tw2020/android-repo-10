@@ -8,6 +8,7 @@ import com.github.repo.domain.model.Notification
 import com.github.repo.domain.repository.GithubRepository
 import com.github.repo.presentation.common.UiState
 import com.github.repo.presentation.common.onSuccess
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class NotificationsViewModel(
@@ -18,12 +19,14 @@ class NotificationsViewModel(
     val uiState: LiveData<UiState<List<Notification>>> = _uiState
     private val cache = mutableListOf<String>()
     private var prevList = listOf<Notification>()
-
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+        _uiState.value = UiState.Error
+    }
     init {
         getNotifications(1)
     }
 
-    fun getNotifications(page: Int) = viewModelScope.launch {
+    fun getNotifications(page: Int) = viewModelScope.launch(coroutineExceptionHandler) {
         _uiState.value?.onSuccess { it ->
             prevList = it
         }
